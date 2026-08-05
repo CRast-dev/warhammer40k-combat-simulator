@@ -1,0 +1,42 @@
+import java.util.List;
+
+public class Model {
+    private int maximumWounds;
+    private int currentWounds;
+    private List<Weapon> weapons;
+    private int toughness;
+    private int save;
+    private int invulnSave;
+
+    public Model(int toughness, int save, int invulnSave, int maximumWounds, int currentWounds, List<Weapon> weapons) {
+        this.toughness = toughness;
+        this.save = save;
+        this.invulnSave = invulnSave;
+        this.maximumWounds = maximumWounds;
+        this.currentWounds = currentWounds;
+        this.weapons = weapons;
+    }
+    public int getToughness() {
+        return toughness;
+    }
+
+    public int getSave() {
+        return save;
+    }
+
+    public int getInvulnSave() {
+        return invulnSave;
+    }
+    public int getMaximumWounds() {
+        return maximumWounds;
+    }
+
+    public int getCurrentWounds() {
+        return currentWounds;
+    }
+
+    public List<Weapon> getWeapons() {
+        return weapons;
+    }
+
+}
