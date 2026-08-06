@@ -4,10 +4,11 @@ import java.util.List;
 /**
  * Class representing the results of an entire shooting phase
  */
-public class ShootingPhaseResult {
+public class ShootingPhaseResult extends PhaseResult{
     private final List<AttackResult> attacks;
 
     public ShootingPhaseResult(List<AttackResult> attacks) {
+        super("Shooting");
         this.attacks = attacks;
     }
     public List<AttackResult> getAttacks() {

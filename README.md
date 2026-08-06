@@ -19,12 +19,3 @@ Removing/deletion of models due to inflicted damage
 Melee combat simulation
 SQL Database for unit/model/weapon data
 Web Interface
-
-
-
-++++++++++++ ChangeLog ++++++++++++
-0.2: 
-Javadoc for classes and methods
-Changed access modifiers for several methods in combat.CombatRules
-
-0.1: Initial commit

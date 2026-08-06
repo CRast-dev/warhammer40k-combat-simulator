@@ -1,4 +1,7 @@
 package result;
 
-public class ChargeResult {
+public class ChargeResult extends PhaseResult{
+    public ChargeResult(String phaseName) {
+        super("Charge");
+    }
 }

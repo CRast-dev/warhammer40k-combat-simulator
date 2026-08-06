@@ -14,12 +14,14 @@ public class Model {
     private int save;
     private int invulnSave;
 
-    public Model(int toughness, int save, int invulnSave, int maximumWounds, int currentWounds, List<Weapon> weapons) {
+
+
+    public Model(int toughness, int save, int invulnSave, int maximumWounds, List<Weapon> weapons) {
         this.toughness = toughness;
         this.save = save;
         this.invulnSave = invulnSave;
         this.maximumWounds = maximumWounds;
-        this.currentWounds = currentWounds;
+        this.currentWounds = maximumWounds;
         this.weapons = weapons;
     }
     public int getToughness() {
@@ -45,4 +47,7 @@ public class Model {
         return weapons;
     }
 
+    public void setCurrentWounds(int currentWounds) {
+        this.currentWounds = currentWounds;
+    }
 }

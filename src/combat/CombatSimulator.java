@@ -16,9 +16,9 @@ import java.util.List;
 public class CombatSimulator {
 
 
-    public BattleResult battle(Unit attacker, Unit defender){
+    public BattleResult simulateBattle(Unit attacker, Unit defender){
         BattleResult result = new BattleResult(attacker, defender);
-        result.setShootingResult(shooting(attacker, defender));
+        result.addPhase(shooting(attacker, defender));
         return result;
     }
 

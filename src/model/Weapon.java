@@ -7,15 +7,15 @@ package model;
 public class Weapon {
     private String name;
     private int attacks;
-    private int strength;
     private int ballisticSkill;
+    private int strength;
     //ap is used in the notation of the datasheets by being negative (0, -1, -2 etc)
     private int ap;
     //TODO better format/object for the weapon characteristic to prepare for dice-dependant damage (2d6+3)
     private int damage;
     private int range;
 
-    public Weapon(String name, int attacks, int strength, int ballisticSkill, int ap, int damage, int range){
+    public Weapon(String name, int attacks, int ballisticSkill, int strength, int ap, int damage, int range){
         this.name = name;
         this.attacks = attacks;
         this.strength = strength;
