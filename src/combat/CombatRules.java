@@ -102,8 +102,18 @@ public class CombatRules {
      */
     public static int rollWounds(int hitCount, Weapon weapon, Model defender){
         int woundCount = calculateWounds(hitCount, weapon.getStrength(), defender.getToughness());
-        woundCount = savingThrow(woundCount, weapon.getAp(), defender);
         return woundCount;
+    }
+
+    /**
+     * Method to represent rolling for Saves
+     * @param woundCount Amount of wounds to roll saves for
+     * @param weapon attacking weapon
+     * @param defender defending model
+     * @return Amount of unsaved Wounds.
+     */
+    public static int rollSaves(int woundCount, Weapon weapon, Model defender){
+        return savingThrow(woundCount, weapon.getAp(), defender);
     }
 
     /**

@@ -19,6 +19,7 @@ public class CombatSimulator {
     public BattleResult simulateBattle(Unit attacker, Unit defender){
         BattleResult result = new BattleResult(attacker, defender);
         result.addPhase(shooting(attacker, defender));
+        result.addPhase(shooting(defender, attacker));
         return result;
     }
 
@@ -38,7 +39,7 @@ public class CombatSimulator {
                 atkList.add(currentAttack);
             }
         }
-        return new ShootingPhaseResult(atkList);
+        return new ShootingPhaseResult(atkList,attacker,defender);
     }
 
 
@@ -52,7 +53,8 @@ public class CombatSimulator {
         AttackResult atkResult = new AttackResult(weapon);
         atkResult.setHits(CombatRules.rollHits(weapon));
         atkResult.setWounds(CombatRules.rollWounds(atkResult.getHits(), weapon, defender));
-        atkResult.setDamage(CombatRules.calculateDamage(atkResult.getWounds(), weapon.getDamage()));
+        atkResult.setUnsavedWounds(CombatRules.rollSaves(atkResult.getWounds(),weapon,defender));
+        atkResult.setDamage(CombatRules.calculateDamage(atkResult.getUnsavedWounds(), weapon.getDamage()));
         return atkResult;
     }
 

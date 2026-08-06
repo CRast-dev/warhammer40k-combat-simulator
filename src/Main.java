@@ -2,11 +2,10 @@ import model.*;
 import combat.CombatSimulator;
 import result.BattleResult;
 import view.BattlePrinter;
+import view.PrintLevel;
+
 import java.util.ArrayList;
 import java.util.List;
-
-
-
 public class Main {
     public static void main(String[] args) {
         CombatSimulator combatSimulator = new CombatSimulator();
@@ -22,10 +21,10 @@ public class Main {
         for(int i = 0; i < 10; i++){
             intercessorModels.add(new Model(4,3,0,2,spaceMarineWeapons));
         }
-        Unit attacker = new Unit("Helverin", helverinModels);
+        Unit attacker = new Unit("Armiger Helverin", helverinModels);
         Unit defender = new Unit("Space Marine Intercessor", intercessorModels);
 
         BattleResult battle = combatSimulator.simulateBattle(attacker,defender);
-        BattlePrinter.print(battle);
+        BattlePrinter.print(battle, PrintLevel.SUMMARY);
     }
 }

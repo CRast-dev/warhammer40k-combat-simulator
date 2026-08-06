@@ -9,6 +9,7 @@ public class AttackResult {
     private final Weapon weapon;
     private int hits;
     private int wounds;
+    private int unsavedWounds;
     private int damage;
 
     public AttackResult(Weapon weapon) {
@@ -31,7 +32,9 @@ public class AttackResult {
         return damage;
     }
 
-
+    public int getUnsavedWounds() {
+        return unsavedWounds;
+    }
 
     public void setHits(int hits) {
         this.hits = hits;
@@ -39,6 +42,10 @@ public class AttackResult {
 
     public void setWounds(int wounds) {
         this.wounds = wounds;
+    }
+
+    public void setUnsavedWounds(int unsavedWounds) {
+        this.unsavedWounds = unsavedWounds;
     }
 
     public void setDamage(int damage) {

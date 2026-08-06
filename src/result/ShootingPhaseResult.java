@@ -1,4 +1,6 @@
 package result;
+import model.Unit;
+
 import java.util.List;
 
 /**
@@ -6,13 +8,14 @@ import java.util.List;
  */
 public class ShootingPhaseResult extends PhaseResult{
     private final List<AttackResult> attacks;
+    private final Unit attacker;
+    private final Unit defender;
 
-    public ShootingPhaseResult(List<AttackResult> attacks) {
+    public ShootingPhaseResult(List<AttackResult> attacks, Unit attacker, Unit defender) {
         super("Shooting");
         this.attacks = attacks;
-    }
-    public List<AttackResult> getAttacks() {
-        return attacks;
+        this.attacker = attacker;
+        this.defender = defender;
     }
     public int getTotalHits(){
         int totalHits = 0;
@@ -28,11 +31,30 @@ public class ShootingPhaseResult extends PhaseResult{
         }
         return totalWounds;
     }
+    public int getTotalUnsavedWounds(){
+        int totalUnsavedWounds = 0;
+        for(AttackResult atk : attacks){
+            totalUnsavedWounds += atk.getUnsavedWounds();
+        }
+        return totalUnsavedWounds;
+    }
+
     public int getTotalDamage(){
         int totalDamage = 0;
         for(AttackResult atk : attacks){
             totalDamage += atk.getDamage();
         }
         return totalDamage;
+    }
+    public List<AttackResult> getAttacks() {
+        return attacks;
+    }
+
+    public Unit getAttacker() {
+        return attacker;
+    }
+
+    public Unit getDefender() {
+        return defender;
     }
 }
