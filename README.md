@@ -4,6 +4,7 @@ Goal of this application is to make a statistical evaluation of a single round o
 Eventually this application is meant to be customizable for the user and compatible with special rules and toggle-able options.
 
 ++++++++++++ Current Features ++++++++++++
+
 Shooting Phase simulation
 Calculation of hit rolls, wound rolls, saving throws and damage.
 Object oriented approach to separating Units into their respective models and the weapons of said models
@@ -11,9 +12,19 @@ Object oriented approach to separating Units into their respective models and th
 
 
 ++++++++++++ Planned Features ++++++++++++
+
 UI Output
 Damage allocation for models
 Removing/deletion of models due to inflicted damage
 Melee combat simulation
 SQL Database for unit/model/weapon data
 Web Interface
+
+
+
+++++++++++++ ChangeLog ++++++++++++
+0.2: 
+Javadoc for classes and methods
+Changed access modifiers for several methods in combat.CombatRules
+
+0.1: Initial commit

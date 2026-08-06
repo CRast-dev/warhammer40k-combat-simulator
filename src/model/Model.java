@@ -1,5 +1,11 @@
-import java.util.List;
+package model;
 
+import java.util.List;
+/**
+ * A single model within a unit.
+ * A model contains its woundcount along with the defensive parameters and the weapons
+ * it is currently equipped with.
+ */
 public class Model {
     private int maximumWounds;
     private int currentWounds;

@@ -1,4 +1,9 @@
+package util;
+
 import java.util.Random;
+/**
+ * Represents a variable sided dice.
+ */
 public class Dice {
     static Random r = new Random();
     public Dice(){

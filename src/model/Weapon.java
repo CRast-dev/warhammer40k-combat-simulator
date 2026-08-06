@@ -1,10 +1,17 @@
+package model;
+
+/**
+ * represents a single weapon.
+ * Contains the name and the offensive parameters
+ */
 public class Weapon {
     private String name;
     private int attacks;
     private int strength;
     private int ballisticSkill;
-    //ap is used in the GW way of being negative, like "-1"
+    //ap is used in the notation of the datasheets by being negative (0, -1, -2 etc)
     private int ap;
+    //TODO better format/object for the weapon characteristic to prepare for dice-dependant damage (2d6+3)
     private int damage;
     private int range;
 
