@@ -1,3 +1,9 @@
+Version 0.5:
++ replaced the phase strings with enums
++ Made BattleResult no longer a child of PhaseResult
++ incorporated allocationgroup logic according to 11th edition core rules
++ expanded AttackResult
+
 Version 0.4:
 + Added PrintLevel functionality for deciding how detailed the output should be
 + Gave ShootingPhaseResult access to the attacking and defending unit so that Printer can print who attacked who

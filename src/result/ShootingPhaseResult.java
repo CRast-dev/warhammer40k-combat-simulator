@@ -12,7 +12,7 @@ public class ShootingPhaseResult extends PhaseResult{
     private final Unit defender;
 
     public ShootingPhaseResult(List<AttackResult> attacks, Unit attacker, Unit defender) {
-        super("Shooting");
+        super(PhaseType.SHOOTING);
         this.attacks = attacks;
         this.attacker = attacker;
         this.defender = defender;

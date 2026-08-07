@@ -8,14 +8,13 @@ Eventually this application is meant to be customizable for the user and compati
 Shooting Phase simulation
 Calculation of hit rolls, wound rolls, saving throws and damage.
 Object oriented approach to separating Units into their respective models and the weapons of said models
-
-
+Damage allocation for models
+Removing/deletion of models due to inflicted damage
 
 ++++++++++++ Planned Features ++++++++++++
 
 UI Output
-Damage allocation for models
-Removing/deletion of models due to inflicted damage
 Melee combat simulation
+Options for deciding on allocation group strategies
 SQL Database for unit/model/weapon data
 Web Interface

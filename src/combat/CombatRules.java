@@ -4,6 +4,10 @@ import model.Model;
 import model.Weapon;
 import util.Dice;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
 /**
  * Core combat rules to be used during a phase.
  * responsible for hit, wound, saving rolls and damage calculation
@@ -77,20 +81,14 @@ public class CombatRules {
 
     /**
      * Method to determine how many wounds are left after the saving throw step
-     * @param numberOfWounds initial number of wounds to be processed
      * @param ap ap characteristic of the attacking weapon
      * @param defender defending model
-     * @return Amount of Wounds that are left after the saving throws
+     * @param saveRoll save diceroll to evaluate
+     * @return boolean if the save succeeded (True) or failed (False)
      */
-    private static int savingThrow(int numberOfWounds, int ap, Model defender) {
+    public static boolean savingThrow(int ap, Model defender, int saveRoll) {
         int targetToSave = choosingSavingThrow(ap, defender);
-        int woundCount = numberOfWounds;
-        for(int i = 0; i < numberOfWounds; i++){
-            if(Dice.roll(6) >= targetToSave){
-                woundCount--;
-            }
-        }
-        return woundCount;
+        return saveRoll >= targetToSave;
     }
 
     /**
@@ -108,12 +106,15 @@ public class CombatRules {
     /**
      * Method to represent rolling for Saves
      * @param woundCount Amount of wounds to roll saves for
-     * @param weapon attacking weapon
-     * @param defender defending model
-     * @return Amount of unsaved Wounds.
+     * @return List of save roll dice results as an ordered List of ascending dice results.
      */
-    public static int rollSaves(int woundCount, Weapon weapon, Model defender){
-        return savingThrow(woundCount, weapon.getAp(), defender);
+    public static List<Integer> rollSaves(int woundCount){
+        List<Integer> saveRolls = new ArrayList<>();
+        for(int i = 0; i < woundCount; i++){
+            saveRolls.add(Dice.roll(6));
+        }
+        saveRolls.sort(Integer::compareTo);
+        return saveRolls;
     }
 
     /**

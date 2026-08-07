@@ -4,12 +4,12 @@ package result;
  * Abstract Class that other Results inherit from in order to make dealing with Result objects easier
  */
 public abstract class PhaseResult {
-    private final String phaseName;
+    private final PhaseType phaseName;
 
-    public PhaseResult(String phaseName){
+    public PhaseResult(PhaseType phaseName){
         this.phaseName = phaseName;
     }
-    public String getPhaseName() {
+    public PhaseType getPhaseName() {
         return phaseName;
     }
 }

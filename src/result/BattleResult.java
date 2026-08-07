@@ -6,13 +6,12 @@ import java.util.ArrayList;
 /**
  * Class representing the results of the entire battle
  */
-public class BattleResult extends PhaseResult{
+public class BattleResult{
     private final Unit attacker;
     private final Unit defender;
     private final List<PhaseResult> phases;
 
     public BattleResult(Unit attacker, Unit defender) {
-        super("Battle");
         this.attacker = attacker;
         this.defender = defender;
         this.phases = new ArrayList<>();

@@ -35,7 +35,7 @@ public class CombatSimulator {
         for(Model model : attacker.getModels()){
             for(Weapon weapon : model.getWeapons()){
                 //TODO Decide which Model gets attacked or make a units model list be ordered
-                AttackResult currentAttack = resolveWeaponAttack(weapon, (Model) defender.getModels().get(0));
+                AttackResult currentAttack = resolveWeaponAttack(weapon, defender);
                 atkList.add(currentAttack);
             }
         }
@@ -49,13 +49,37 @@ public class CombatSimulator {
      * @param defender defending model
      * @return result.AttackResult object with the number of hits, wounds and damage done in this attack
      */
-    private AttackResult resolveWeaponAttack(Weapon weapon, Model defender) {
+    private AttackResult resolveWeaponAttack(Weapon weapon, Unit defender) {
         AttackResult atkResult = new AttackResult(weapon);
         atkResult.setHits(CombatRules.rollHits(weapon));
-        atkResult.setWounds(CombatRules.rollWounds(atkResult.getHits(), weapon, defender));
-        atkResult.setUnsavedWounds(CombatRules.rollSaves(atkResult.getWounds(),weapon,defender));
-        atkResult.setDamage(CombatRules.calculateDamage(atkResult.getUnsavedWounds(), weapon.getDamage()));
+        atkResult.setWounds(CombatRules.rollWounds(atkResult.getHits(), weapon, defender.getModels().get(0)));
+        List<Integer> saveRolls = CombatRules.rollSaves(atkResult.getWounds());
+        List<AllocationGroup> groups = AllocationGroup.initializeAllocationGroups(defender);
+        //TODO: orderAllocationGroups() method
+        int currentGroupIndex = 0;
+        for(int saveRoll : saveRolls){
+            if(!(CombatRules.savingThrow(weapon.getAp(), groups.get(currentGroupIndex).getModels().get(0), saveRoll))){
+                //Save failed
+                atkResult.addUnsavedWounds();
+                atkResult.addDamage(weapon.getDamage());
+                resolveDamage(weapon.getDamage(), groups.get(currentGroupIndex).getModels().get(0));
+            }
+            AllocationGroup.removeDeadModel(groups.get(currentGroupIndex));
+            if(groups.get(currentGroupIndex).getModels().isEmpty()){
+                currentGroupIndex++;
+            }
+            if(currentGroupIndex >= groups.size()){
+                break;
+            }
+        }
+
         return atkResult;
+    }
+
+
+    private void resolveDamage(int damage, Model defender){
+        int currentWounds = defender.getCurrentWounds();
+        defender.setCurrentWounds(currentWounds - damage);
     }
 
 }
