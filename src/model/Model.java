@@ -13,6 +13,7 @@ public class Model {
     private int toughness;
     private int save;
     private int invulnSave;
+    private final boolean character;
 
 
 
@@ -23,7 +24,22 @@ public class Model {
         this.maximumWounds = maximumWounds;
         this.currentWounds = maximumWounds;
         this.weapons = weapons;
+        this.character = false;
     }
+    public Model(int toughness, int save, int invulnSave, int maximumWounds, List<Weapon> weapons, boolean character) {
+        this.toughness = toughness;
+        this.save = save;
+        this.invulnSave = invulnSave;
+        this.maximumWounds = maximumWounds;
+        this.currentWounds = maximumWounds;
+        this.weapons = weapons;
+        this.character = character;
+    }
+
+    public boolean isCharacter() {
+        return character;
+    }
+
     public int getToughness() {
         return toughness;
     }

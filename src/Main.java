@@ -1,5 +1,6 @@
 import model.*;
 import combat.CombatSimulator;
+import result.AllocationStrategy;
 import result.BattleResult;
 import view.BattlePrinter;
 import view.PrintLevel;
@@ -23,8 +24,9 @@ public class Main {
         }
         Unit attacker = new Unit("Armiger Helverin", helverinModels);
         Unit defender = new Unit("Space Marine Intercessor", intercessorModels);
-
-        BattleResult battle = combatSimulator.simulateBattle(attacker,defender);
+        AllocationStrategy allocationStrategyAttacker = AllocationStrategy.WORST_SAVE_FIRST;
+        AllocationStrategy allocationStrategyDefender = AllocationStrategy.WORST_SAVE_FIRST;
+        BattleResult battle = combatSimulator.simulateBattle(attacker,defender, allocationStrategyAttacker, allocationStrategyDefender);
         BattlePrinter.print(battle, PrintLevel.SUMMARY);
     }
 }

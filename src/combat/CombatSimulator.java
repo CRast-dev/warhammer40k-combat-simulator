@@ -3,6 +3,7 @@ package combat;
 import model.Model;
 import model.Unit;
 import model.Weapon;
+import result.AllocationStrategy;
 import result.AttackResult;
 import result.BattleResult;
 import result.ShootingPhaseResult;
@@ -16,10 +17,10 @@ import java.util.List;
 public class CombatSimulator {
 
 
-    public BattleResult simulateBattle(Unit attacker, Unit defender){
+    public BattleResult simulateBattle(Unit attacker, Unit defender, AllocationStrategy strategyAttacker, AllocationStrategy strategyDefender){
         BattleResult result = new BattleResult(attacker, defender);
-        result.addPhase(shooting(attacker, defender));
-        result.addPhase(shooting(defender, attacker));
+        result.addPhase(shooting(attacker, defender, strategyAttacker));
+        result.addPhase(shooting(defender, attacker, strategyDefender));
         return result;
     }
 
@@ -29,13 +30,13 @@ public class CombatSimulator {
      * @param defender defending unit
      * @return a ShootingPhaseResult object containing the list of AttackResults
      */
-    public ShootingPhaseResult shooting(Unit attacker, Unit defender) {
+    public ShootingPhaseResult shooting(Unit attacker, Unit defender, AllocationStrategy strategy) {
         //TODO Implement Range statistic and distance between Units
         List<AttackResult> atkList = new ArrayList<>();
         for(Model model : attacker.getModels()){
             for(Weapon weapon : model.getWeapons()){
                 //TODO Decide which Model gets attacked or make a units model list be ordered
-                AttackResult currentAttack = resolveWeaponAttack(weapon, defender);
+                AttackResult currentAttack = resolveWeaponAttack(weapon, defender, strategy);
                 atkList.add(currentAttack);
             }
         }
@@ -49,12 +50,13 @@ public class CombatSimulator {
      * @param defender defending model
      * @return result.AttackResult object with the number of hits, wounds and damage done in this attack
      */
-    private AttackResult resolveWeaponAttack(Weapon weapon, Unit defender) {
+    private AttackResult resolveWeaponAttack(Weapon weapon, Unit defender, AllocationStrategy strategy) {
         AttackResult atkResult = new AttackResult(weapon);
         atkResult.setHits(CombatRules.rollHits(weapon));
         atkResult.setWounds(CombatRules.rollWounds(atkResult.getHits(), weapon, defender.getModels().get(0)));
         List<Integer> saveRolls = CombatRules.rollSaves(atkResult.getWounds());
         List<AllocationGroup> groups = AllocationGroup.initializeAllocationGroups(defender);
+        groups = AllocationHandler.orderAllocationGroups(groups, strategy);
         //TODO: orderAllocationGroups() method
         int currentGroupIndex = 0;
         for(int saveRoll : saveRolls){
