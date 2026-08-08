@@ -62,7 +62,7 @@ public class CombatSimulator {
                 //Save failed
                 atkResult.addUnsavedWounds();
                 atkResult.addDamage(weapon.getDamage());
-                resolveDamage(weapon.getDamage(), groups.get(currentGroupIndex).getModels().get(0));
+                atkResult.addDestroyedModel(resolveDamage(weapon.getDamage(), groups.get(currentGroupIndex).getModels().get(0)));
             }
             AllocationGroup.removeDeadModel(groups.get(currentGroupIndex));
             if(groups.get(currentGroupIndex).getModels().isEmpty()){
@@ -77,9 +77,14 @@ public class CombatSimulator {
     }
 
 
-    private void resolveDamage(int damage, Model defender){
+    private int resolveDamage(int damage, Model defender){
         int currentWounds = defender.getCurrentWounds();
         defender.setCurrentWounds(currentWounds - damage);
+        if (defender.getCurrentWounds() <= 0){
+            return 1;
+        }else{
+            return 0;
+        }
     }
 
 }

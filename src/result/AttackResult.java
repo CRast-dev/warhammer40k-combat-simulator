@@ -40,6 +40,9 @@ public class AttackResult {
     public int getUnsavedWounds() {
         return unsavedWounds;
     }
+    public void addDestroyedModel(int models){
+        this.destroyedModels += models;
+    }
     public void addDamage(int damage){
         this.damage += damage;
     }

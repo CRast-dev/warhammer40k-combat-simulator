@@ -1,3 +1,8 @@
+Version 0.6:
++ added destroyedModels into the battleprinter and result
++ some initial Junit testing for AllocationGroup and CombatSimulator
++ added Damage class to represent dice dependant damage (2D6 + 3 for example)
+
 Version 0.5:
 + replaced the phase strings with enums
 + Made BattleResult no longer a child of PhaseResult

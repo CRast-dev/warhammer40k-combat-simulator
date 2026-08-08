@@ -46,6 +46,13 @@ public class ShootingPhaseResult extends PhaseResult{
         }
         return totalDamage;
     }
+    public int getDestroyedModels(){
+        int destroyedModels = 0;
+        for(AttackResult atk : attacks){
+            destroyedModels += atk.getDestroyedModels();
+        }
+        return destroyedModels;
+    }
     public List<AttackResult> getAttacks() {
         return attacks;
     }

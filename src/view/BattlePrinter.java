@@ -44,6 +44,7 @@ public class BattlePrinter {
         System.out.println("Total Wounds: " + shooting.getTotalWounds());
         System.out.println("Total unsaved Wounds: " + shooting.getTotalUnsavedWounds());
         System.out.println("Total Damage: " + shooting.getTotalDamage());
+        System.out.println("Destroyed Models: " + shooting.getDestroyedModels());
         System.out.println("-------------------------------" +"\n");
     }
     public static void print(AttackResult attack){

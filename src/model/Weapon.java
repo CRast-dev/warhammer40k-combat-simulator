@@ -11,11 +11,10 @@ public class Weapon {
     private int strength;
     //ap is used in the notation of the datasheets by being negative (0, -1, -2 etc)
     private int ap;
-    //TODO better format/object for the weapon characteristic to prepare for dice-dependant damage (2d6+3)
-    private int damage;
+    private Damage damage;
     private int range;
 
-    public Weapon(String name, int attacks, int ballisticSkill, int strength, int ap, int damage, int range){
+    public Weapon(String name, int attacks, int ballisticSkill, int strength, int ap, Damage damage, int range){
         this.name = name;
         this.attacks = attacks;
         this.strength = strength;
@@ -46,7 +45,7 @@ public class Weapon {
     }
 
     public int getDamage() {
-        return damage;
+        return damage.damageOutcome(damage);
     }
 
     public int getRange() {
