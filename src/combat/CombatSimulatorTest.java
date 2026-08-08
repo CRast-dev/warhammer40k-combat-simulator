@@ -43,5 +43,22 @@ class CombatSimulatorTest {
         ShootingPhaseResult shootingPhaseResult = combatSimulator.shooting(attacker,defender);
         assertEquals(0, shootingPhaseResult.getTotalUnsavedWounds());
     }
+    @Test
+    void diceDependantDamage() {
+        CombatSimulator combatSimulator = new CombatSimulator();
+        List<Model> attackerModels = new ArrayList<>();
+        List<Weapon> attackerModelsWeapons = new ArrayList<>();
+        attackerModelsWeapons.add( new Weapon("Test Weapon",5,0,4,-100,new Damage(1,6,0), 24));
+        attackerModels.add(new Model(4,0,0,2,attackerModelsWeapons));
+        List<Model> defenderModels = new ArrayList<>();
+        defenderModels.add(new Model(4,7,7,2,null));
+        Unit attacker = new Unit("TestAttacker", attackerModels);
+        Unit defender = new Unit("TestDefender", defenderModels);
+
+        ShootingPhaseResult shootingPhaseResult = combatSimulator.shooting(attacker,defender);
+        assertNotEquals(0, shootingPhaseResult.getTotalDamage());
+    }
+
+
 
 }
