@@ -1,3 +1,8 @@
+Version 0.7:
++ made Model have a boolean isCharacter field
++ implemented allocationStrategies to choose
++ implemented the 11th edition allocation group rules for units with character and non-character models
+
 Version 0.6:
 + added destroyedModels into the battleprinter and result
 + some initial Junit testing for AllocationGroup and CombatSimulator

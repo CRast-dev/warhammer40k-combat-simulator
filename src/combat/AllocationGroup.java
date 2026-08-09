@@ -26,6 +26,9 @@ public class AllocationGroup {
                 && model.getSave() == firstModel.getSave()
                 && model.getInvulnSave() == firstModel.getInvulnSave());
     }
+    public boolean hasDamagedModel(){
+        return models.stream().anyMatch(model -> model.getCurrentWounds() < model.getMaximumWounds());
+    };
     public static void removeDeadModel(AllocationGroup group){
         group.getModels().removeIf(model -> model.getCurrentWounds() <= 0);
     }

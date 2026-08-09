@@ -5,6 +5,7 @@ import model.Model;
 import model.Unit;
 import model.Weapon;
 import org.junit.jupiter.api.Test;
+import result.AllocationStrategy;
 import result.ShootingPhaseResult;
 
 import java.util.ArrayList;
@@ -24,8 +25,8 @@ class CombatSimulatorTest {
         defenderModels.add(new Model(4,7,7,2,null));
         Unit attacker = new Unit("TestAttacker", attackerModels);
         Unit defender = new Unit("TestDefender", defenderModels);
-
-        ShootingPhaseResult shootingPhaseResult = combatSimulator.shooting(attacker,defender);
+        AllocationStrategy strategy = AllocationStrategy.WORST_SAVE_FIRST;
+        ShootingPhaseResult shootingPhaseResult = combatSimulator.shooting(attacker,defender, strategy);
         assertEquals(1, shootingPhaseResult.getDestroyedModels());
     }
     @Test
@@ -39,8 +40,8 @@ class CombatSimulatorTest {
         defenderModels.add(new Model(4,0,-1,2,null));
         Unit attacker = new Unit("TestAttacker", attackerModels);
         Unit defender = new Unit("TestDefender", defenderModels);
-
-        ShootingPhaseResult shootingPhaseResult = combatSimulator.shooting(attacker,defender);
+        AllocationStrategy strategy = AllocationStrategy.WORST_SAVE_FIRST;
+        ShootingPhaseResult shootingPhaseResult = combatSimulator.shooting(attacker,defender, strategy);
         assertEquals(0, shootingPhaseResult.getTotalUnsavedWounds());
     }
     @Test
@@ -54,8 +55,8 @@ class CombatSimulatorTest {
         defenderModels.add(new Model(4,7,7,2,null));
         Unit attacker = new Unit("TestAttacker", attackerModels);
         Unit defender = new Unit("TestDefender", defenderModels);
-
-        ShootingPhaseResult shootingPhaseResult = combatSimulator.shooting(attacker,defender);
+        AllocationStrategy strategy = AllocationStrategy.WORST_SAVE_FIRST;
+        ShootingPhaseResult shootingPhaseResult = combatSimulator.shooting(attacker,defender, strategy);
         assertNotEquals(0, shootingPhaseResult.getTotalDamage());
     }
 
