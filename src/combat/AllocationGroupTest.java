@@ -3,8 +3,6 @@ import java.util.ArrayList;
 import java.util.List;
 import model.*;
 import org.junit.jupiter.api.Test;
-import result.BattleResult;
-import result.ShootingPhaseResult;
 
 import static org.junit.jupiter.api.Assertions.*;
 

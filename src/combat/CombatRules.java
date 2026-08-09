@@ -5,7 +5,6 @@ import model.Weapon;
 import util.Dice;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -16,7 +15,7 @@ public class CombatRules {
     public static int rollHits(Weapon weapon) {
         int hitcount = 0;
         for (int i = 0; i < weapon.getAttacks(); i++) {
-            if (Dice.roll(6) >= weapon.getBallisticSkill()) {
+            if (Dice.roll(6) >= weapon.getSkill()) {
                 hitcount++;
             }
         }
@@ -41,6 +40,10 @@ public class CombatRules {
             targetToWound = 6;
         } else{
             targetToWound = 5;
+        }
+        //DEBUG CASE TO FORCE SHOTS TO GO THROUGH
+        if(strength == -1){
+            targetToWound = 0;
         }
         return targetToWound;
     }

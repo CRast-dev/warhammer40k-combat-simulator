@@ -3,7 +3,7 @@ package view;
 import result.AttackResult;
 import result.BattleResult;
 import result.PhaseResult;
-import result.ShootingPhaseResult;
+import result.CombatPhaseResult;
 
 /**
  * Class responsible for printing output to console
@@ -16,7 +16,7 @@ public class BattlePrinter {
      * @param phase the phase to print
      */
     public static void print(PhaseResult phase, PrintLevel level){
-        if(phase instanceof ShootingPhaseResult shooting){
+        if(phase instanceof CombatPhaseResult shooting){
             print(shooting, level);
         }
     }
@@ -30,7 +30,7 @@ public class BattlePrinter {
             print(phase, level);
         }
     }
-    public static void print(ShootingPhaseResult shooting, PrintLevel level){
+    public static void print(CombatPhaseResult shooting, PrintLevel level){
         System.out.println("Shooting Phase:");
         System.out.println("Attacker: " + shooting.getAttacker().getName());
         System.out.println("Defender: " + shooting.getDefender().getName());

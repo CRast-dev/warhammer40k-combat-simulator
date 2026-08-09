@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 /**
  * A single model within a unit.
@@ -61,6 +62,24 @@ public class Model {
 
     public List<Weapon> getWeapons() {
         return weapons;
+    }
+    public List<Weapon> getRangedWeapons(){
+        List<Weapon> rangedWeapons = new ArrayList<>();
+        for(Weapon weapon : weapons){
+            if(weapon.getType() == Weapon.WeaponType.RANGED){
+                rangedWeapons.add(weapon);
+            }
+        }
+        return rangedWeapons;
+    }
+    public List<Weapon> getMeleeWeapons(){
+        List<Weapon> meleeWeapons = new ArrayList<>();
+        for(Weapon weapon : weapons){
+            if(weapon.getType() == Weapon.WeaponType.MELEE){
+                meleeWeapons.add(weapon);
+            }
+        }
+        return meleeWeapons;
     }
 
     public void setCurrentWounds(int currentWounds) {

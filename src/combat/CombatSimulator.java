@@ -3,10 +3,8 @@ package combat;
 import model.Model;
 import model.Unit;
 import model.Weapon;
+import result.*;
 import result.AllocationStrategy;
-import result.AttackResult;
-import result.BattleResult;
-import result.ShootingPhaseResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,17 +28,28 @@ public class CombatSimulator {
      * @param defender defending unit
      * @return a ShootingPhaseResult object containing the list of AttackResults
      */
-    public ShootingPhaseResult shooting(Unit attacker, Unit defender, AllocationStrategy strategy) {
+    public CombatPhaseResult shooting(Unit attacker, Unit defender, AllocationStrategy strategy) {
         //TODO Implement Range statistic and distance between Units
         List<AttackResult> atkList = new ArrayList<>();
         for(Model model : attacker.getModels()){
-            for(Weapon weapon : model.getWeapons()){
-                //TODO Decide which Model gets attacked or make a units model list be ordered
+            for(Weapon weapon : model.getRangedWeapons()){
                 AttackResult currentAttack = resolveWeaponAttack(weapon, defender, strategy);
                 atkList.add(currentAttack);
             }
         }
-        return new ShootingPhaseResult(atkList,attacker,defender);
+        return new CombatPhaseResult(PhaseType.SHOOTING, atkList,attacker,defender);
+    }
+
+    public CombatPhaseResult melee(Unit attacker, Unit defender, AllocationStrategy strategy){
+        //ToDO melee combat
+        List<AttackResult> atkList = new ArrayList<>();
+        for(Model model : attacker.getModels()){
+            for(Weapon weapon : model.getMeleeWeapons()){
+                AttackResult currentAttack = resolveWeaponAttack(weapon, defender, strategy);
+                atkList.add(currentAttack);
+            }
+        }
+        return new CombatPhaseResult(PhaseType.MELEE, atkList,attacker,defender);
     }
 
 

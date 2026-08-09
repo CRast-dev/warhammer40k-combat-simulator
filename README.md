@@ -19,6 +19,7 @@ Options for deciding on allocation group strategies
 variable Starting distance (max 12 inches) to be used for charging
 Charging Phase
 Implement options to decide if a Unit (Defender or attacker) wants to try charging or stay stationary
+Choosing Weapon profiles dynamically
 Melee combat simulation
 SQL Database for unit/model/weapon data
 Web Interface

@@ -6,13 +6,13 @@ import java.util.List;
 /**
  * Class representing the results of an entire shooting phase
  */
-public class ShootingPhaseResult extends PhaseResult{
+public class CombatPhaseResult extends PhaseResult{
     private final List<AttackResult> attacks;
     private final Unit attacker;
     private final Unit defender;
 
-    public ShootingPhaseResult(List<AttackResult> attacks, Unit attacker, Unit defender) {
-        super(PhaseType.SHOOTING);
+    public CombatPhaseResult(PhaseType type, List<AttackResult> attacks, Unit attacker, Unit defender) {
+        super(type);
         this.attacks = attacks;
         this.attacker = attacker;
         this.defender = defender;
