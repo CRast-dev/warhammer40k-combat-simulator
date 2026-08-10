@@ -13,13 +13,13 @@ Removing/deletion of models due to inflicted damage
 UI Output to console
 dice dependant damage rolls (2d6+3)
 Options for deciding on allocation group strategies
+Charging Phase
+Implement options to decide if a Unit (Defender or attacker) wants to try charging or stay stationary
+Melee combat simulation
 
 ++++++++++++ Planned Features ++++++++++++
 
 variable Starting distance (max 12 inches) to be used for charging
-Charging Phase
-Implement options to decide if a Unit (Defender or attacker) wants to try charging or stay stationary
 Choosing Weapon profiles dynamically
-Melee combat simulation
 SQL Database for unit/model/weapon data
 Web Interface

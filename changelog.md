@@ -1,3 +1,7 @@
+Version 0.8
++ Melee Combat and Charge phase implemented
++ new class for all the starting options
+
 Version 0.7:
 + made Model have a boolean isCharacter field
 + implemented allocationStrategies to choose

@@ -5,6 +5,7 @@ import model.Unit;
 import model.Weapon;
 import result.*;
 import result.AllocationStrategy;
+import util.Dice;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +14,27 @@ import java.util.List;
  *Class responsible for the different combat phases
  */
 public class CombatSimulator {
-
-
-    public BattleResult simulateBattle(Unit attacker, Unit defender, AllocationStrategy strategyAttacker, AllocationStrategy strategyDefender){
+    public BattleResult simulateBattle(Unit attacker, Unit defender, CombatOptions options) {
         BattleResult result = new BattleResult(attacker, defender);
-        result.addPhase(shooting(attacker, defender, strategyAttacker));
-        result.addPhase(shooting(defender, attacker, strategyDefender));
+        result.addPhase(shooting(attacker, defender, options.getDefenderAllocationStrategy()));
+        if (options.attackerWantsToCharge()) {
+            ChargeResult chargeResultAttacker = charge(attacker, defender, options.getStartingDistance());
+            result.addPhase(chargeResultAttacker);
+            if (chargeResultAttacker.isSuccessful()) {
+                result.addPhase(melee(attacker, defender, options.getDefenderAllocationStrategy()));
+                result.addPhase(melee(defender, attacker, options.getAttackerAllocationStrategy()));
+                return result;
+            }
+        }
+        result.addPhase(shooting(defender, attacker, options.getAttackerAllocationStrategy()));
+        if (options.defenderWantsToCharge()) {
+            ChargeResult chargeResultDefender = charge(defender, attacker, options.getStartingDistance());
+            result.addPhase(chargeResultDefender);
+            if (chargeResultDefender.isSuccessful()) {
+                result.addPhase(melee(defender, attacker, options.getDefenderAllocationStrategy()));
+                result.addPhase(melee(attacker, defender, options.getAttackerAllocationStrategy()));
+            }
+        }
         return result;
     }
 
@@ -50,6 +66,11 @@ public class CombatSimulator {
             }
         }
         return new CombatPhaseResult(PhaseType.MELEE, atkList,attacker,defender);
+    }
+
+    public ChargeResult charge(Unit attacker, Unit defender, int distance){
+        int chargeRoll = Dice.roll(6) + Dice.roll(6);
+        return new ChargeResult(PhaseType.CHARGE, distance, chargeRoll, attacker, defender);
     }
 
 

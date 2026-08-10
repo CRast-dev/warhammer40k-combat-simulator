@@ -1,9 +1,6 @@
 package view;
 
-import result.AttackResult;
-import result.BattleResult;
-import result.PhaseResult;
-import result.CombatPhaseResult;
+import result.*;
 
 /**
  * Class responsible for printing output to console
@@ -16,8 +13,10 @@ public class BattlePrinter {
      * @param phase the phase to print
      */
     public static void print(PhaseResult phase, PrintLevel level){
-        if(phase instanceof CombatPhaseResult shooting){
-            print(shooting, level);
+        if(phase instanceof CombatPhaseResult combat){
+            print(combat, level);
+        } else if (phase instanceof ChargeResult charge) {
+            print(charge, level);
         }
     }
     public static void print(BattleResult battle, PrintLevel level){
@@ -31,7 +30,7 @@ public class BattlePrinter {
         }
     }
     public static void print(CombatPhaseResult shooting, PrintLevel level){
-        System.out.println("Shooting Phase:");
+        System.out.println(shooting.getPhaseName() + " Phase:");
         System.out.println("Attacker: " + shooting.getAttacker().getName());
         System.out.println("Defender: " + shooting.getDefender().getName());
         if(level == PrintLevel.DETAILED){
@@ -47,6 +46,20 @@ public class BattlePrinter {
         System.out.println("Destroyed Models: " + shooting.getDestroyedModels());
         System.out.println("-------------------------------" +"\n");
     }
+    public static void print(ChargeResult charge, PrintLevel level){
+        System.out.println("Charge Phase:");
+        System.out.println(charge.getAttacker().getName() + " attempts to charge at a distance of " + charge.getDistance() + "!");
+        System.out.println("The Charge Roll is a " + charge.getChargeRoll() + "!");
+        String outcome = "";
+        if (charge.isSuccessful()){
+            outcome = "successful";
+        }else{
+            outcome = "not successful";
+        }
+        System.out.println("The Charge Roll was " + outcome + "!" + "\n");
+    }
+
+
     public static void print(AttackResult attack){
         System.out.println(attack.getWeapon().getName());
         System.out.println("Hits: " + attack.getHits());
