@@ -5,14 +5,14 @@ import result.AllocationStrategy;
 public class CombatOptions {
     private AllocationStrategy attackerAllocationStrategy;
     private AllocationStrategy defenderAllocationStrategy;
-    private int startingDistance;
+    private int distance;
     private boolean attackerWantsToCharge;
     private boolean defenderWantsToCharge;
 
-    public CombatOptions(AllocationStrategy attackerAllocationStrategy, AllocationStrategy defenderAllocationStrategy, int startingDistance, boolean attackerWantsToCharge, boolean defenderWantsToCharge) {
+    public CombatOptions(AllocationStrategy attackerAllocationStrategy, AllocationStrategy defenderAllocationStrategy, int distance, boolean attackerWantsToCharge, boolean defenderWantsToCharge) {
         this.attackerAllocationStrategy = attackerAllocationStrategy;
         this.defenderAllocationStrategy = defenderAllocationStrategy;
-        this.startingDistance = startingDistance;
+        this.distance = distance;
         this.attackerWantsToCharge = attackerWantsToCharge;
         this.defenderWantsToCharge = defenderWantsToCharge;
     }
@@ -25,8 +25,8 @@ public class CombatOptions {
         return defenderAllocationStrategy;
     }
 
-    public int getStartingDistance() {
-        return startingDistance;
+    public int getDistance() {
+        return distance;
     }
 
     public boolean attackerWantsToCharge() {
@@ -35,5 +35,9 @@ public class CombatOptions {
 
     public boolean defenderWantsToCharge() {
         return defenderWantsToCharge;
+    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
     }
 }

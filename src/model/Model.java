@@ -15,25 +15,28 @@ public class Model {
     private int save;
     private int invulnSave;
     private final boolean character;
+    private int movement;
 
 
 
-    public Model(int toughness, int save, int invulnSave, int maximumWounds, List<Weapon> weapons) {
+    public Model(int toughness, int save, int invulnSave, int maximumWounds, int movement, List<Weapon> weapons) {
         this.toughness = toughness;
         this.save = save;
         this.invulnSave = invulnSave;
         this.maximumWounds = maximumWounds;
         this.currentWounds = maximumWounds;
         this.weapons = weapons;
+        this.movement = movement;
         this.character = false;
     }
-    public Model(int toughness, int save, int invulnSave, int maximumWounds, List<Weapon> weapons, boolean character) {
+    public Model(int toughness, int save, int invulnSave, int maximumWounds, int movement, List<Weapon> weapons, boolean character) {
         this.toughness = toughness;
         this.save = save;
         this.invulnSave = invulnSave;
         this.maximumWounds = maximumWounds;
         this.currentWounds = maximumWounds;
         this.weapons = weapons;
+        this.movement = movement;
         this.character = character;
     }
 
@@ -63,6 +66,11 @@ public class Model {
     public List<Weapon> getWeapons() {
         return weapons;
     }
+
+    public int getMovement() {
+        return movement;
+    }
+
     public List<Weapon> getRangedWeapons(){
         List<Weapon> rangedWeapons = new ArrayList<>();
         for(Weapon weapon : weapons){

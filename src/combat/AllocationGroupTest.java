@@ -10,9 +10,9 @@ class AllocationGroupTest {
     @Test
     void modelsWithSameCharacteristicsAreInSameGroup() {
         List<Model> testModels = new ArrayList<>();
-        testModels.add(new Model(4,3,0,2,null));
-        testModels.add(new Model(4,3,0,2,null));
-        testModels.add(new Model(4,3,0,2,null));
+        testModels.add(new Model(4,3,0,2,0,null));
+        testModels.add(new Model(4,3,0,2,0,null));
+        testModels.add(new Model(4,3,0,2,0,null));
         Unit unit = new Unit("Test Model", testModels);
         List<AllocationGroup> groups = AllocationGroup.initializeAllocationGroups(unit);
 
@@ -22,9 +22,9 @@ class AllocationGroupTest {
     @Test
     void modelsWithDifferentCharacteristicsAreInDifferentGroup() {
         List<Model> testModels = new ArrayList<>();
-        testModels.add(new Model(4,3,0,2,null));
-        testModels.add(new Model(4,5,0,2,null));
-        testModels.add(new Model(4,0,0,2,null));
+        testModels.add(new Model(4,3,0,2,0,null));
+        testModels.add(new Model(4,5,0,2,0,null));
+        testModels.add(new Model(4,0,0,2,0,null));
         Unit unit = new Unit("Test Model", testModels);
         List<AllocationGroup> groups = AllocationGroup.initializeAllocationGroups(unit);
 

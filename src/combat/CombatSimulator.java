@@ -16,9 +16,10 @@ import java.util.List;
 public class CombatSimulator {
     public BattleResult simulateBattle(Unit attacker, Unit defender, CombatOptions options) {
         BattleResult result = new BattleResult(attacker, defender);
+        movementAttacker(attacker, options);
         result.addPhase(shooting(attacker, defender, options.getDefenderAllocationStrategy()));
         if (options.attackerWantsToCharge()) {
-            ChargeResult chargeResultAttacker = charge(attacker, defender, options.getStartingDistance());
+            ChargeResult chargeResultAttacker = charge(attacker, defender, options.getDistance());
             result.addPhase(chargeResultAttacker);
             if (chargeResultAttacker.isSuccessful()) {
                 result.addPhase(melee(attacker, defender, options.getDefenderAllocationStrategy()));
@@ -27,8 +28,9 @@ public class CombatSimulator {
             }
         }
         result.addPhase(shooting(defender, attacker, options.getAttackerAllocationStrategy()));
+        movementDefender(defender, options);
         if (options.defenderWantsToCharge()) {
-            ChargeResult chargeResultDefender = charge(defender, attacker, options.getStartingDistance());
+            ChargeResult chargeResultDefender = charge(defender, attacker, options.getDistance());
             result.addPhase(chargeResultDefender);
             if (chargeResultDefender.isSuccessful()) {
                 result.addPhase(melee(defender, attacker, options.getDefenderAllocationStrategy()));
@@ -36,6 +38,16 @@ public class CombatSimulator {
             }
         }
         return result;
+    }
+    public void movementAttacker(Unit unit, CombatOptions options){
+        if(options.attackerWantsToCharge()){
+            options.setDistance(options.getDistance() - unit.getModels().get(0).getMovement());
+        }
+    }
+    public void movementDefender(Unit unit, CombatOptions options){
+        if(options.defenderWantsToCharge()){
+            options.setDistance(options.getDistance() - unit.getModels().get(0).getMovement());
+        }
     }
 
     /**
