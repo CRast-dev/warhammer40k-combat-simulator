@@ -1,6 +1,6 @@
 package combat;
 
-import result.AllocationStrategy;
+import combat.AllocationStrategy;
 
 public class CombatOptions {
     private AllocationStrategy attackerAllocationStrategy;

@@ -19,11 +19,11 @@ public class Weapon {
         MELEE
     }
 
-    public Weapon(String name, int attacks, int ballisticSkill, int strength, int ap, Damage damage, int range, WeaponType type){
+    public Weapon(String name, int attacks, int skill, int strength, int ap, Damage damage, int range, WeaponType type){
         this.name = name;
         this.attacks = attacks;
         this.strength = strength;
-        this.skill = ballisticSkill;
+        this.skill = skill;
         this.ap = ap;
         this.damage = damage;
         if(type == WeaponType.MELEE){

@@ -4,7 +4,7 @@ import model.Model;
 import model.Unit;
 import model.Weapon;
 import result.*;
-import result.AllocationStrategy;
+import combat.AllocationStrategy;
 import util.Dice;
 
 import java.util.ArrayList;

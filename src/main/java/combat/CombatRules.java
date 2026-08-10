@@ -119,15 +119,4 @@ public class CombatRules {
         saveRolls.sort(Integer::compareTo);
         return saveRolls;
     }
-
-    /**
-     * Method to represent the damage roll step of combat
-     * @param wounds wounds to be evaluated for damage
-     * @param damage damage characteristic of the attacking weapon
-     * @return Amount of damage done
-     */
-    public static int calculateDamage(int wounds, int damage){
-        //TODO dice-dependant weapon damage (2d6 etc)
-        return wounds * damage;
-    }
 }

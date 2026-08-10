@@ -1,16 +1,9 @@
-package combat;
-
-import model.Damage;
-import model.Model;
-import model.Unit;
-import model.Weapon;
+import combat.*;
+import model.*;
 import org.junit.jupiter.api.Test;
-import result.AllocationStrategy;
-import result.CombatPhaseResult;
-
+import result.*;
 import java.util.ArrayList;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class CombatSimulatorTest {

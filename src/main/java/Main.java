@@ -1,15 +1,49 @@
-import combat.CombatOptions;
+import combat.*;
 import model.*;
-import combat.CombatSimulator;
-import result.AllocationStrategy;
-import result.BattleResult;
-import view.BattlePrinter;
-import view.PrintLevel;
+import result.*;
+import view.*;
 
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
 public class Main {
     public static void main(String[] args) {
+
+        String url = "jdbc:postgresql://localhost:5432/warhammer_simulator";
+        String username = "postgres";
+        String password = "1214";
+
+        try {
+            Connection connection =
+                    DriverManager.getConnection(url, username, password);
+
+            System.out.println("Successfully connected to PostgreSQL!");
+            String sql = "SELECT * FROM weapons";
+
+            Statement statement = connection.createStatement();
+
+            ResultSet result = statement.executeQuery(sql);
+            while (result.next()) {
+                String name = result.getString("name");
+                int attacks = result.getInt("attacks");
+
+                System.out.println(name + ": " + attacks);
+            }
+
+            connection.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+
         CombatOptions options = new CombatOptions(AllocationStrategy.WORST_SAVE_FIRST, AllocationStrategy.WORST_SAVE_FIRST, 14, false, true);
         CombatSimulator combatSimulator = new CombatSimulator();
         List<Weapon> helverinWeapons = new ArrayList<>();

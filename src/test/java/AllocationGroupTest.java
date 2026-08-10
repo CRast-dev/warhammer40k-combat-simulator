@@ -1,9 +1,8 @@
-package combat;
 import java.util.ArrayList;
 import java.util.List;
+import combat.*;
 import model.*;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class AllocationGroupTest {

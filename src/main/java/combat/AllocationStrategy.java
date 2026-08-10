@@ -1,4 +1,4 @@
-package result;
+package combat;
 
 public enum AllocationStrategy {
     WORST_SAVE_FIRST,
