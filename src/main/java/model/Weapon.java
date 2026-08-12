@@ -1,12 +1,16 @@
 package model;
 
+import util.Dice;
+
 /**
  * represents a single weapon.
  * Contains the name and the offensive parameters
  */
 public class Weapon {
     private String name;
-    private int attacks;
+    private int flat_attacks;
+    private int attack_dice_sides;
+    private int attack_dice_count;
     private int skill;
     private int strength;
     //ap is used in the notation of the datasheets by being negative (0, -1, -2 etc)
@@ -19,9 +23,11 @@ public class Weapon {
         MELEE
     }
 
-    public Weapon(String name, int attacks, int skill, int strength, int ap, Damage damage, int range, WeaponType type){
+    public Weapon(String name, int attacks, int attack_dice_sides, int attack_dice_count, int skill, int strength, int ap, Damage damage, int range, WeaponType type){
         this.name = name;
-        this.attacks = attacks;
+        this.flat_attacks = attacks;
+        this.attack_dice_sides = attack_dice_sides;
+        this.attack_dice_count = attack_dice_count;
         this.strength = strength;
         this.skill = skill;
         this.ap = ap;
@@ -39,7 +45,13 @@ public class Weapon {
     }
 
     public int getAttacks() {
-        return attacks;
+        int attacks = getFlat_attacks();
+        int diceAttacks = 0;
+        for(int i = 0; i < getAttack_dice_count(); i++){
+            diceAttacks += Dice.roll(getAttack_dice_sides());
+        }
+
+        return attacks + diceAttacks;
     }
 
     public int getStrength() {
@@ -54,12 +66,25 @@ public class Weapon {
         return ap;
     }
 
+    //TODO get rid of the extra Damage class and do it like with attacks
     public int getDamage() {
         return damage.damageOutcome(damage);
     }
 
     public int getRange() {
         return range;
+    }
+
+    public int getFlat_attacks() {
+        return flat_attacks;
+    }
+
+    public int getAttack_dice_sides() {
+        return attack_dice_sides;
+    }
+
+    public int getAttack_dice_count() {
+        return attack_dice_count;
     }
 
     public WeaponType getType() {

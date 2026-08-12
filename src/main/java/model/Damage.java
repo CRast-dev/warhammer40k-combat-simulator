@@ -2,9 +2,11 @@ package model;
 import util.Dice;
 
 public class Damage {
+
+    private int flatDamage;
     private int diceCount;
     private int diceSides;
-    private int flatDamage;
+
     public int damageOutcome(Damage weaponDamageCharacteristic){
         int flatdamage = weaponDamageCharacteristic.getFlatDamage();
         int diceDamage = 0;

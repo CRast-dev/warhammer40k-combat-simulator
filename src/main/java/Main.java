@@ -14,13 +14,10 @@ import java.sql.DriverManager;
 public class Main {
     public static void main(String[] args) {
 
-        String url = "jdbc:postgresql://localhost:5432/warhammer_simulator";
-        String username = "postgres";
-        String password = "1214";
+
 
         try {
-            Connection connection =
-                    DriverManager.getConnection(url, username, password);
+
 
             System.out.println("Successfully connected to PostgreSQL!");
             String sql = "SELECT * FROM weapons";
@@ -47,6 +44,9 @@ public class Main {
         CombatOptions options = new CombatOptions(AllocationStrategy.WORST_SAVE_FIRST, AllocationStrategy.WORST_SAVE_FIRST, 14, false, true);
         CombatSimulator combatSimulator = new CombatSimulator();
         List<Weapon> helverinWeapons = new ArrayList<>();
+        helverinWeapons.add(new Weapon("Armiger Autocannon", 4, 3, 9,-1,
+                new Damage(0,0,3),
+                48, Weapon.WeaponType.RANGED));
         helverinWeapons.add(new Weapon("Armiger Autocannon", 4, 3, 9,-1,
                 new Damage(0,0,3),
                 48, Weapon.WeaponType.RANGED));
