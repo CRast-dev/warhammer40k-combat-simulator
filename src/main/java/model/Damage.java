@@ -11,7 +11,12 @@ public class Damage {
         int flatdamage = weaponDamageCharacteristic.getFlatDamage();
         int diceDamage = 0;
         for(int i = 0; i < weaponDamageCharacteristic.getDiceCount(); i++){
-            diceDamage += Dice.roll(weaponDamageCharacteristic.getDiceSides());
+            //TODO UNSAFE CALL DUE TO GETDICESIDES POTENTIALLY BEING 0!!!
+            if(weaponDamageCharacteristic.getDiceSides() > 0){
+                diceDamage += Dice.roll(weaponDamageCharacteristic.getDiceSides());
+            }else{
+                diceDamage = 0;
+            }
         }
         return flatdamage + diceDamage;
     }

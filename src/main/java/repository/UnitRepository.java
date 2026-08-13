@@ -14,13 +14,32 @@ import java.util.List;
 public class UnitRepository {
 
     public static Unit getUnitByID(int id) throws SQLException {
+        String unitName = "";
+        List<Model> models = new ArrayList<>();
         String sql = "SELECT * FROM units WHERE id = ?";
         try (Connection connection = DatabaseConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
-                return new Unit(resultSet.getString("name"),
-                        ModelRepository.getModelByID(resultSet.getInt(id)));
+                if (!resultSet.next()) {
+                    return null;
+                }
+                unitName = resultSet.getString("name");
+                String modelSql = "SELECT model_id, model_count FROM unit_models WHERE unit_id = ?";
+                try (PreparedStatement modelStatement = connection.prepareStatement(modelSql)) {
+                    modelStatement.setInt(1,id);
+                    try(ResultSet modelResult = modelStatement.executeQuery()){
+                        while(modelResult.next()){
+                            int modelID = modelResult.getInt("model_id");
+                            int modelCount = modelResult.getInt("model_count");
+                            Model model = ModelRepository.getModelByID(modelID);
+                            for(int i = 0; i < modelCount; i++){
+                                models.add(model);
+                            }
+                        }
+                    }
+                }
             }
+            return new Unit(unitName, models);
         }
     }
 

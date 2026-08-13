@@ -12,31 +12,26 @@ import java.sql.SQLException;
 
 public class ModelRepository {
 
-    public static List<Model> getModelByID(int id) throws SQLException {
-        List<Model> modelList = new ArrayList<>();
+    public static Model getModelByID(int id) throws SQLException {
         String sql = "SELECT * FROM models WHERE id = ?";
-        try (Connection connection = DatabaseConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (Connection connection = DatabaseConnection.getConnection();PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
-                if(resultSet.next()){
-                    String sqlWeap = "SELECT weapon_id FROM model_weapons WHERE model_id = ?";
-                    PreparedStatement statementWeap = connection.prepareStatement(sqlWeap);
-                    List<Weapon> modelWeapons = new ArrayList<>();
-                    statementWeap.setInt(1, id);
-                    try (ResultSet resultSetWeap = statementWeap.executeQuery()) {
-                        modelWeapons = WeaponRepository.getWeaponByID(resultSetWeap.getInt("weapon_id"));
-                    }
-                    //TODO make a for loop to reduce amount of queries
-                    modelList.add(new Model(resultSet.getInt("toughness"),
+                if (resultSet.next()) {
+                    List<Weapon> modelWeapons = WeaponRepository.getWeaponByID(id);
+                    return new Model(
+                            resultSet.getInt("toughness"),
                             resultSet.getInt("save"),
                             resultSet.getInt("invuln_save"),
                             resultSet.getInt("max_wounds"),
                             resultSet.getInt("movement"),
                             modelWeapons,
-                            resultSet.getBoolean("is_character")));
+                            resultSet.getBoolean("is_character")
+                    );
                 }
             }
         }
-        return modelList;
+
+        return null;
     }
 }
