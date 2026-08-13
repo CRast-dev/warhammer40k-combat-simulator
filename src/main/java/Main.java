@@ -13,34 +13,7 @@ import java.sql.DriverManager;
 
 public class Main {
     public static void main(String[] args) {
-
-
-
-        try {
-
-
-            System.out.println("Successfully connected to PostgreSQL!");
-            String sql = "SELECT * FROM weapons";
-
-            Statement statement = connection.createStatement();
-
-            ResultSet result = statement.executeQuery(sql);
-            while (result.next()) {
-                String name = result.getString("name");
-                int attacks = result.getInt("attacks");
-
-                System.out.println(name + ": " + attacks);
-            }
-
-            connection.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-
-
+        
         CombatOptions options = new CombatOptions(AllocationStrategy.WORST_SAVE_FIRST, AllocationStrategy.WORST_SAVE_FIRST, 14, false, true);
         CombatSimulator combatSimulator = new CombatSimulator();
         List<Weapon> helverinWeapons = new ArrayList<>();

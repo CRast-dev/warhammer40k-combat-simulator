@@ -7,17 +7,17 @@ import util.Dice;
  * Contains the name and the offensive parameters
  */
 public class Weapon {
-    private String name;
-    private int flat_attacks;
-    private int attack_dice_sides;
-    private int attack_dice_count;
-    private int skill;
-    private int strength;
+    private final String name;
+    private final int flat_attacks;
+    private final int attack_dice_sides;
+    private final int attack_dice_count;
+    private final int skill;
+    private final int strength;
     //ap is used in the notation of the datasheets by being negative (0, -1, -2 etc)
-    private int ap;
-    private Damage damage;
-    private int range;
-    private WeaponType type;
+    private final int ap;
+    private final Damage damage;
+    private final int range;
+    private final WeaponType type;
     public enum WeaponType {
         RANGED,
         MELEE
