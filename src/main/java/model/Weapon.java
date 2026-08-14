@@ -68,7 +68,7 @@ public class Weapon {
 
     //TODO get rid of the extra Damage class and do it like with attacks
     public int getDamage() {
-        return damage.damageOutcome(damage);
+        return damage.damageOutcome();
     }
 
     public int getRange() {

@@ -7,21 +7,18 @@ public class Damage {
     private int diceCount;
     private int diceSides;
 
-    public int damageOutcome(Damage weaponDamageCharacteristic){
-        int flatdamage = weaponDamageCharacteristic.getFlatDamage();
+    public int damageOutcome() {
+        int flatDamage = getFlatDamage();
         int diceDamage = 0;
-        for(int i = 0; i < weaponDamageCharacteristic.getDiceCount(); i++){
-            //TODO UNSAFE CALL DUE TO GETDICESIDES POTENTIALLY BEING 0!!!
-            if(weaponDamageCharacteristic.getDiceSides() > 0){
-                diceDamage += Dice.roll(weaponDamageCharacteristic.getDiceSides());
-            }else{
-                diceDamage = 0;
-            }
+
+        for (int i = 0; i < getDiceCount(); i++) {
+            diceDamage += Dice.roll(getDiceSides());
         }
-        return flatdamage + diceDamage;
+
+        return flatDamage + diceDamage;
     }
 
-    public Damage(int diceCount, int diceSides, int flatDamage) {
+    public Damage(int flatDamage, int diceSides, int diceCount) {
         this.diceCount = diceCount;
         this.diceSides = diceSides;
         this.flatDamage = flatDamage;

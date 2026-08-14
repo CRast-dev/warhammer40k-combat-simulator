@@ -4,7 +4,6 @@ import model.Model;
 import model.Unit;
 import model.Weapon;
 import result.*;
-import combat.AllocationStrategy;
 import util.Dice;
 
 import java.util.ArrayList;
@@ -98,8 +97,7 @@ public class CombatSimulator {
         atkResult.setWounds(CombatRules.rollWounds(atkResult.getHits(), weapon, defender.getModels().get(0)));
         List<Integer> saveRolls = CombatRules.rollSaves(atkResult.getWounds());
         List<AllocationGroup> groups = AllocationGroup.initializeAllocationGroups(defender);
-        groups = AllocationHandler.orderAllocationGroups(groups, strategy);
-        //TODO: orderAllocationGroups() method
+        AllocationHandler.orderAllocationGroups(groups, strategy);
         int currentGroupIndex = 0;
         for(int saveRoll : saveRolls){
             if(!(CombatRules.savingThrow(weapon.getAp(), groups.get(currentGroupIndex).getModels().get(0), saveRoll))){
