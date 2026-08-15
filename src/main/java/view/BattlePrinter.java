@@ -1,4 +1,8 @@
 package view;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import result.*;
 
@@ -37,15 +41,60 @@ public class BattlePrinter {
             for(AttackResult attack : shooting.getAttacks()){
                 print(attack);
             }
+        }else if (level == PrintLevel.SUMMARY){
+            System.out.println("-------------------------------");
+            System.out.println("Total Attacks: " + shooting.getTotalAttacks());
+            System.out.println("Total Hits: " + shooting.getTotalHits());
+            System.out.println("Total Wounds: " + shooting.getTotalWounds());
+            System.out.println("Total unsaved Wounds: " + shooting.getTotalUnsavedWounds());
+            System.out.println("Total Damage: " + shooting.getTotalDamage());
+            System.out.println("Destroyed Models: " + shooting.getDestroyedModels());
+            System.out.println("-------------------------------" + "\n");
+        } else if (level == PrintLevel.WEAPON_SUMMARY) {
+            printWeaponSummary(shooting);
         }
-        System.out.println("-------------------------------");
-        System.out.println("Total Hits: " + shooting.getTotalHits());
-        System.out.println("Total Wounds: " + shooting.getTotalWounds());
-        System.out.println("Total unsaved Wounds: " + shooting.getTotalUnsavedWounds());
-        System.out.println("Total Damage: " + shooting.getTotalDamage());
-        System.out.println("Destroyed Models: " + shooting.getDestroyedModels());
-        System.out.println("-------------------------------" +"\n");
+
     }
+    private static void printWeaponSummary(CombatPhaseResult shooting){
+
+        Map<String, List<AttackResult>> attacksByWeapon = new LinkedHashMap<>();
+
+        for (AttackResult attack : shooting.getAttacks()) {
+            String weaponName = attack.getWeapon().getName();
+
+            List<AttackResult> weaponAttacks = attacksByWeapon.get(weaponName);
+
+            if (weaponAttacks == null) {
+                weaponAttacks = new ArrayList<>();
+                attacksByWeapon.put(weaponName, weaponAttacks);
+            }
+
+            weaponAttacks.add(attack);
+        }
+        for (Map.Entry<String, List<AttackResult>> entry : attacksByWeapon.entrySet()){
+            AttackResult weaponResult = mergeWeaponAttacks(entry.getValue());
+            System.out.println("Attacking with " + entry.getKey() + ":");
+            System.out.println("Attacks: " + weaponResult.getAttacks());
+            System.out.println("Hits: " + weaponResult.getHits());
+            System.out.println("Wounds: " + weaponResult.getWounds());
+            System.out.println("Unsaved Wounds: " + weaponResult.getUnsavedWounds());
+            System.out.println("Damage: " + weaponResult.getDamage());
+            System.out.println("Destroyed Models: " + weaponResult.getDestroyedModels());
+            System.out.println();
+        }
+
+
+    }
+
+    private static AttackResult mergeWeaponAttacks(List<AttackResult> attacks){
+        AttackResult result = new AttackResult(attacks.get(0).getWeapon());
+        for(AttackResult attack : attacks){
+            result.add(attack);
+        }
+        return result;
+    }
+
+
     public static void print(ChargeResult charge, PrintLevel level){
         System.out.println("Charge Phase:");
         System.out.println(charge.getAttacker().getName() + " attempts to charge at a distance of " + charge.getDistance() + "!");
@@ -62,6 +111,7 @@ public class BattlePrinter {
 
     public static void print(AttackResult attack){
         System.out.println(attack.getWeapon().getName());
+        System.out.println("Attacks: " + attack.getAttacks());
         System.out.println("Hits: " + attack.getHits());
         System.out.println("Wounds: " + attack.getWounds());
         System.out.println("Unsaved Wounds: " + attack.getUnsavedWounds());

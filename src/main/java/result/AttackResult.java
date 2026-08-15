@@ -7,6 +7,7 @@ import model.Weapon;
  */
 public class AttackResult {
     private final Weapon weapon;
+    private int attacks;
     private int hits;
     private int wounds;
     private int unsavedWounds;
@@ -56,6 +57,22 @@ public class AttackResult {
 
     public void setWounds(int wounds) {
         this.wounds = wounds;
+    }
+    public void add(AttackResult result){
+        this.attacks += result.getAttacks();
+        this.hits += result.getHits();
+        this.wounds += result.getWounds();
+        this.unsavedWounds += result.getUnsavedWounds();
+        this.damage += result.getDamage();
+        this.destroyedModels += result.getDestroyedModels();
+    }
+
+    public void setAttacks(int attacks) {
+        this.attacks = attacks;
+    }
+
+    public int getAttacks() {
+        return attacks;
     }
 
     public void setUnsavedWounds(int unsavedWounds) {

@@ -93,6 +93,7 @@ public class CombatSimulator {
      */
     private AttackResult resolveWeaponAttack(Weapon weapon, Unit defender, AllocationStrategy strategy) {
         AttackResult atkResult = new AttackResult(weapon);
+        atkResult.setAttacks(weapon.getAttacks());
         atkResult.setHits(CombatRules.rollHits(weapon));
         atkResult.setWounds(CombatRules.rollWounds(atkResult.getHits(), weapon, defender.getModels().get(0)));
         List<Integer> saveRolls = CombatRules.rollSaves(atkResult.getWounds());
@@ -101,7 +102,6 @@ public class CombatSimulator {
         int currentGroupIndex = 0;
         for(int saveRoll : saveRolls){
             if(!(CombatRules.savingThrow(weapon.getAp(), groups.get(currentGroupIndex).getModels().get(0), saveRoll))){
-                //Save failed
                 atkResult.addUnsavedWounds();
                 atkResult.addDamage(weapon.getDamage());
                 atkResult.addDestroyedModel(resolveDamage(weapon.getDamage(), groups.get(currentGroupIndex).getModels().get(0)));

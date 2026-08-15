@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        CombatOptions options = new CombatOptions(AllocationStrategy.WORST_SAVE_FIRST, AllocationStrategy.WORST_SAVE_FIRST, 14, false, true);
+        CombatOptions options = new CombatOptions(AllocationStrategy.WORST_SAVE_FIRST, AllocationStrategy.WORST_SAVE_FIRST, 10, false, true);
         CombatSimulator combatSimulator = new CombatSimulator();
         Unit attacker = null;
         try {
@@ -25,6 +25,6 @@ public class Main {
             throw new RuntimeException(e);
         }
         BattleResult battle = combatSimulator.simulateBattle(attacker,defender, options);
-        BattlePrinter.print(battle, PrintLevel.SUMMARY);
+        BattlePrinter.print(battle, PrintLevel.WEAPON_SUMMARY);
     }
 }

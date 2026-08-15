@@ -2,5 +2,6 @@ package view;
 
 public enum PrintLevel {
     SUMMARY,
-    DETAILED
+    DETAILED,
+    WEAPON_SUMMARY
 }

@@ -24,6 +24,13 @@ public class CombatPhaseResult extends PhaseResult{
         }
         return totalHits;
     }
+    public int getTotalAttacks(){
+        int totalAttacks = 0;
+        for(AttackResult atk : attacks){
+            totalAttacks += atk.getAttacks();
+        }
+        return totalAttacks;
+    }
     public int getTotalWounds(){
         int totalWounds = 0;
         for(AttackResult atk : attacks){
