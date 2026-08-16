@@ -29,7 +29,15 @@ public class AllocationGroup {
     public boolean hasDamagedModel(){
         return models.stream().anyMatch(model -> model.getCurrentWounds() < model.getMaximumWounds());
     };
-    public static void removeDeadModel(AllocationGroup group){
+    public static void removeDeadModel(AllocationGroup group, Unit unit){
+        //filter all dead models into this new list
+        List<Model> deadModels = group.getModels().stream().filter(model -> model.getCurrentWounds() <= 0).toList();
+        for(Model model : deadModels){
+            //remove the dead model from both the allocation group AND the unit
+            group.getModels().remove(model);
+            unit.removeModel(model);
+        }
+
         group.getModels().removeIf(model -> model.getCurrentWounds() <= 0);
     }
 
@@ -52,11 +60,6 @@ public class AllocationGroup {
         return groups;
     }
 
-
-
-    public void removeDeadModel(){
-        models.removeIf(model -> model.getCurrentWounds() <= 0);
-    }
 
 
     public List<Model> getModels(){

@@ -101,13 +101,21 @@ public class CombatSimulator {
         AllocationHandler.orderAllocationGroups(groups, strategy);
         int currentGroupIndex = 0;
         for(int saveRoll : saveRolls){
-            if(!(CombatRules.savingThrow(weapon.getAp(), groups.get(currentGroupIndex).getModels().get(0), saveRoll))){
+            if(currentGroupIndex >= groups.size()){
+                break;
+            }
+            Model targetModel = groups.get(currentGroupIndex).getModels().get(0);
+            if(!(CombatRules.savingThrow(weapon.getAp(), targetModel, saveRoll))){
                 atkResult.addUnsavedWounds();
                 atkResult.addDamage(weapon.getDamage());
-                atkResult.addDestroyedModel(resolveDamage(weapon.getDamage(), groups.get(currentGroupIndex).getModels().get(0)));
+                atkResult.addDestroyedModel(resolveDamage(weapon.getDamage(), targetModel));
             }
-            AllocationGroup.removeDeadModel(groups.get(currentGroupIndex));
-            if(groups.get(currentGroupIndex).getModels().isEmpty()){
+            AllocationGroup.removeDeadModel(groups.get(currentGroupIndex), defender);
+
+
+
+            while (currentGroupIndex < groups.size()
+                    && groups.get(currentGroupIndex).getModels().isEmpty()) {
                 currentGroupIndex++;
             }
             if(currentGroupIndex >= groups.size()){

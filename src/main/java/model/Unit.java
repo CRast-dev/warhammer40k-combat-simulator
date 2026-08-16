@@ -21,4 +21,12 @@ public class Unit {
     public List<Model> getModels() {
         return models;
     }
+
+    public void removeModel(Model model){
+        models.remove(model);
+    }
+    public boolean isDestroyed() {
+        return models.isEmpty();
+    }
 }
+

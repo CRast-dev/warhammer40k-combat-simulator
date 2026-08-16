@@ -1,6 +1,5 @@
 package combat;
 import java.util.List;
-import combat.AllocationStrategy;
 
 public class AllocationHandler {
 

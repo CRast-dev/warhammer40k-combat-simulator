@@ -33,7 +33,7 @@ public class UnitRepository {
                             int modelCount = modelResult.getInt("model_count");
                             Model model = ModelRepository.getModelByID(modelID);
                             for(int i = 0; i < modelCount; i++){
-                                models.add(model);
+                                models.add(new Model(model));
                             }
                         }
                     }

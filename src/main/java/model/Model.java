@@ -40,6 +40,18 @@ public class Model {
         this.character = character;
     }
 
+    public Model(Model other) {
+        //copy constrcutor. because same class i guess we dont need getter methods
+        this.toughness = other.toughness;
+        this.save = other.save;
+        this.invulnSave = other.invulnSave;
+        this.maximumWounds = other.maximumWounds;
+        this.currentWounds = other.maximumWounds;
+        this.weapons = new ArrayList<>(other.weapons);
+        this.movement = other.movement;
+        this.character = other.character;
+    }
+
     public boolean isCharacter() {
         return character;
     }
