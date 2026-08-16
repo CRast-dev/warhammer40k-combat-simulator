@@ -1,4 +1,5 @@
 package result;
+import statistics.CombatStatistics;
 import model.Unit;
 import java.util.List;
 import java.util.ArrayList;
@@ -31,4 +32,39 @@ public class BattleResult{
     public Unit getDefender() {
         return defender;
     }
+    public CombatStatistics getAttackerStatistic(){
+        CombatStatistics statistics = new CombatStatistics();
+        for(PhaseResult phase : phases){
+            if(phase instanceof CombatPhaseResult combatPhase){
+                if(combatPhase.getAttacker() == attacker){
+                    statistics.add(combatPhase);
+                }
+            }
+        }
+        return statistics;
+    }
+    public CombatStatistics getDefenderStatistic(){
+        CombatStatistics statistics = new CombatStatistics();
+        for(PhaseResult phase : phases){
+            if(phase instanceof CombatPhaseResult combatPhase){
+                if(combatPhase.getAttacker() == defender){
+                    statistics.add(combatPhase);
+                }
+            }
+        }
+        return statistics;
+    }
+
+    public int getSuccessfulCharges(Unit unit){
+        int successfulCharges = 0;
+        for(PhaseResult phase : phases){
+            if(phase instanceof ChargeResult charge){
+                if(charge.isSuccessful()){
+                    successfulCharges++;
+                }
+            }
+        }
+        return successfulCharges;
+    }
+
 }
