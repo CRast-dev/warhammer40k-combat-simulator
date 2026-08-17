@@ -53,35 +53,35 @@ public class SimulationStatistics {
     public int getAverageDefenderAttacks(){
         return totalDefenderAttacks / simulations;
     }
-    public int getAverageAttackerHits(){
-        return totalAttackerHits / simulations;
+    public double getAverageAttackerHits(){
+        return (double) totalAttackerHits / simulations;
     }
-    public int getAverageDefenderHits(){
-        return totalDefenderHits / simulations;
+    public double getAverageDefenderHits(){
+        return (double) totalDefenderHits / simulations;
     }
-    public int getAverageAttackerWounds(){
-        return totalAttackerWounds / simulations;
+    public double getAverageAttackerWounds(){
+        return (double) totalAttackerWounds / simulations;
     }
-    public int getAverageDefenderWounds(){
-        return totalDefenderWounds / simulations;
+    public double getAverageDefenderWounds(){
+        return (double) totalDefenderWounds / simulations;
     }
-    public int getAverageAttackerUnsavedWounds(){
-        return totalAttackerUnsavedWounds / simulations;
+    public double getAverageAttackerUnsavedWounds(){
+        return (double) totalAttackerUnsavedWounds / simulations;
     }
-    public int getAverageDefenderUnsavedWounds(){
-        return totalDefenderUnsavedWounds / simulations;
+    public double getAverageDefenderUnsavedWounds(){
+        return (double) totalDefenderUnsavedWounds / simulations;
     }
-    public int getAverageAttackerDamage(){
-        return totalAttackerDamage / simulations;
+    public double getAverageAttackerDamage(){
+        return (double) totalAttackerDamage / simulations;
     }
-    public int getAverageDefenderDamage(){
-        return totalDefenderDamage / simulations;
+    public double getAverageDefenderDamage(){
+        return (double) totalDefenderDamage / simulations;
     }
-    public int getAverageAttackerDestroyedModels(){
-        return totalAttackerDestroyedModels / simulations;
+    public double getAverageAttackerDestroyedModels(){
+        return (double) totalAttackerDestroyedModels / simulations;
     }
-    public int getAverageDefenderDestroyedModels(){
-        return totalDefenderDestroyedModels / simulations;
+    public double getAverageDefenderDestroyedModels(){
+        return (double) totalDefenderDestroyedModels / simulations;
     }
 
     public int getTotalAttackerSuccessfulCharges() {
