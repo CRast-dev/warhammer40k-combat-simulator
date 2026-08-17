@@ -1,6 +1,7 @@
 package result;
 
 import model.Unit;
+import statistics.CombatStatistics;
 import view.PrintLevel;
 
 public class ChargeResult extends PhaseResult{
@@ -8,8 +9,9 @@ public class ChargeResult extends PhaseResult{
     private final int chargeRoll;
     private final int distance;
     private final boolean successful;
-    private final Unit attacker;
+
     private final Unit defender;
+    private final Unit attacker;
 
     public ChargeResult(PhaseType type, int distance, int chargeRoll, Unit attacker, Unit defender) {
         super(type);
@@ -56,5 +58,12 @@ public class ChargeResult extends PhaseResult{
             outcome = "not successful";
         }
         System.out.println("The Charge Roll was " + outcome + "!" + "\n");
+    }
+
+    @Override
+    public void addStatisticFor(Unit unit, CombatStatistics statistics) {
+        if(attacker == unit){
+            statistics.add(this);
+        }
     }
 }

@@ -1,5 +1,6 @@
 package result;
 import model.Unit;
+import statistics.CombatStatistics;
 import view.BattlePrinter;
 import view.PrintLevel;
 
@@ -94,6 +95,13 @@ public class CombatPhaseResult extends PhaseResult{
             System.out.println("-------------------------------" + "\n");
         } else if (level == PrintLevel.WEAPON_SUMMARY) {
             BattlePrinter.printWeaponSummary(this);
+        }
+    }
+
+    @Override
+    public void addStatisticFor(Unit unit, CombatStatistics statistics) {
+        if(attacker == unit){
+            statistics.add(this);
         }
     }
 }

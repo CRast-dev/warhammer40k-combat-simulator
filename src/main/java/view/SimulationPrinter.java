@@ -20,7 +20,7 @@ public class SimulationPrinter {
         System.out.println("Average unsaved Wounds: " + statistics.getAverageAttackerUnsavedWounds());
         System.out.println("Average Damage: " + statistics.getAverageAttackerDamage());
         System.out.println("Average Models Destroyed: " + statistics.getAverageAttackerDestroyedModels());
-        //System.out.println("Successful Charges: " + statistics.getTotalAttackerSuccessfulCharges());
+        System.out.println("Successful Charges: " + statistics.getTotalAttackerSuccessfulCharges());
 
         System.out.println();
         System.out.println("DEFENDER: " + defender.getName());
@@ -31,7 +31,7 @@ public class SimulationPrinter {
         System.out.println("Average unsaved Wounds: " + statistics.getAverageDefenderUnsavedWounds());
         System.out.println("Average Damage: " + statistics.getAverageDefenderDamage());
         System.out.println("Average Models Destroyed: " + statistics.getAverageDefenderDestroyedModels());
-        //System.out.println("Successful Charges: " + statistics.getTotalDefenderSuccessfulCharges());
+        System.out.println("Successful Charges: " + statistics.getTotalDefenderSuccessfulCharges());
 
     }
 

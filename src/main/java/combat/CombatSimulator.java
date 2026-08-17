@@ -79,9 +79,9 @@ public class CombatSimulator {
         return new CombatPhaseResult(PhaseType.MELEE, atkList,attacker,defender);
     }
 
-    public ChargeResult charge(Unit attacker, Unit defender, int distance){
+    public ChargeResult charge(Unit charger, Unit defender, int distance){
         int chargeRoll = Dice.roll(6) + Dice.roll(6);
-        return new ChargeResult(PhaseType.CHARGE, distance, chargeRoll, attacker, defender);
+        return new ChargeResult(PhaseType.CHARGE, distance, chargeRoll, charger, defender);
     }
 
 

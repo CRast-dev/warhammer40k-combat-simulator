@@ -1,5 +1,7 @@
 package result;
 
+import model.Unit;
+import statistics.CombatStatistics;
 import view.PrintLevel;
 
 /**
@@ -15,4 +17,5 @@ public abstract class PhaseResult {
         return phaseName;
     }
     public abstract void print(PrintLevel level);
+    public abstract void addStatisticFor(Unit unit, CombatStatistics statistics);
 }

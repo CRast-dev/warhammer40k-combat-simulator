@@ -1,6 +1,7 @@
 package statistics;
 
 import result.BattleResult;
+import result.ChargeResult;
 
 public class SimulationStatistics {
     private int simulations;
@@ -24,8 +25,8 @@ public class SimulationStatistics {
 
     public void record(BattleResult battleResult){
         simulations++;
-        CombatStatistics attackerStatistics = battleResult.getAttackerStatistic();
-        CombatStatistics defenderStatistics = battleResult.getDefenderStatistic();
+        CombatStatistics attackerStatistics = battleResult.getStatistic(battleResult.getAttacker());
+        CombatStatistics defenderStatistics = battleResult.getStatistic(battleResult.getDefender());
         totalAttackerAttacks += attackerStatistics.getAttacks();
         totalDefenderAttacks += defenderStatistics.getAttacks();
         totalAttackerHits += attackerStatistics.getHits();
@@ -38,9 +39,9 @@ public class SimulationStatistics {
         totalDefenderDamage += defenderStatistics.getDamage();
         totalAttackerDestroyedModels += attackerStatistics.getDestroyedModels();
         totalDefenderDestroyedModels += defenderStatistics.getDestroyedModels();
-        //TODO Successfulcharges are the same for both attacker and defender. needs fix
-        totalAttackerSuccessfulCharges += battleResult.getSuccessfulCharges(battleResult.getAttacker());
-        totalDefenderSuccessfulCharges += battleResult.getSuccessfulCharges(battleResult.getDefender());
+        totalAttackerSuccessfulCharges += attackerStatistics.getSuccessfulCharges();
+        totalDefenderSuccessfulCharges += defenderStatistics.getSuccessfulCharges();
+
     }
 
     public int getSimulations() {
