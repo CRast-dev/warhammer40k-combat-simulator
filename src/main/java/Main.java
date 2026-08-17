@@ -26,11 +26,11 @@ public class Main {
             throw new RuntimeException(e);
         }
 
-        //BattleResult battle = combatSimulator.simulateBattle(attacker,defender, options);
-        //BattlePrinter.print(battle, PrintLevel.WEAPON_SUMMARY);
-        SimulationRunner simulationRunner = new SimulationRunner(combatSimulator);
-        SimulationStatistics statistics = simulationRunner.runSimulations(attacker, defender, options, 100);
-        SimulationPrinter.print(statistics, attacker, defender);
+        BattleResult battle = combatSimulator.simulateBattle(attacker,defender, options);
+        BattlePrinter.print(battle, PrintLevel.SUMMARY);
+        //SimulationRunner simulationRunner = new SimulationRunner(combatSimulator);
+        //SimulationStatistics statistics = simulationRunner.runSimulations(attacker, defender, options, 100);
+        //SimulationPrinter.print(statistics, attacker, defender);
 
 
     }

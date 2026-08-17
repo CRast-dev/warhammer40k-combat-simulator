@@ -43,6 +43,9 @@ public class BattleResult{
         }
         return statistics;
     }
+
+
+    
     public CombatStatistics getDefenderStatistic(){
         CombatStatistics statistics = new CombatStatistics();
         for(PhaseResult phase : phases){

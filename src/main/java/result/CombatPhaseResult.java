@@ -1,5 +1,7 @@
 package result;
 import model.Unit;
+import view.BattlePrinter;
+import view.PrintLevel;
 
 import java.util.List;
 
@@ -70,5 +72,28 @@ public class CombatPhaseResult extends PhaseResult{
 
     public Unit getDefender() {
         return defender;
+    }
+
+    @Override
+    public void print(PrintLevel level) {
+        System.out.println(this.getPhaseName() + " Phase:");
+        System.out.println("Attacker: " + attacker.getName());
+        System.out.println("Defender: " + defender.getName());
+        if(level == PrintLevel.DETAILED){
+            for(AttackResult attack : attacks){
+                BattlePrinter.print(attack);
+            }
+        }else if (level == PrintLevel.SUMMARY){
+            System.out.println("-------------------------------");
+            System.out.println("Total Attacks: " + this.getTotalAttacks());
+            System.out.println("Total Hits: " + this.getTotalHits());
+            System.out.println("Total Wounds: " + this.getTotalWounds());
+            System.out.println("Total unsaved Wounds: " + this.getTotalUnsavedWounds());
+            System.out.println("Total Damage: " + this.getTotalDamage());
+            System.out.println("Destroyed Models: " + this.getDestroyedModels());
+            System.out.println("-------------------------------" + "\n");
+        } else if (level == PrintLevel.WEAPON_SUMMARY) {
+            BattlePrinter.printWeaponSummary(this);
+        }
     }
 }

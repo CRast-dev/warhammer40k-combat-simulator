@@ -1,6 +1,7 @@
 package result;
 
 import model.Unit;
+import view.PrintLevel;
 
 public class ChargeResult extends PhaseResult{
 
@@ -41,5 +42,19 @@ public class ChargeResult extends PhaseResult{
 
     public int getDistance() {
         return distance;
+    }
+
+    @Override
+    public void print(PrintLevel level) {
+        System.out.println("Charge Phase:");
+        System.out.println(this.getAttacker().getName() + " attempts to charge at a distance of " + this.getDistance() + "!");
+        System.out.println("The Charge Roll is a " + this.getChargeRoll() + "!");
+        String outcome = "";
+        if (this.isSuccessful()){
+            outcome = "successful";
+        }else{
+            outcome = "not successful";
+        }
+        System.out.println("The Charge Roll was " + outcome + "!" + "\n");
     }
 }

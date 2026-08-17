@@ -1,5 +1,7 @@
 package result;
 
+import view.PrintLevel;
+
 /**
  * Abstract Class that other Results inherit from in order to make dealing with Result objects easier
  */
@@ -12,4 +14,5 @@ public abstract class PhaseResult {
     public PhaseType getPhaseName() {
         return phaseName;
     }
+    public abstract void print(PrintLevel level);
 }

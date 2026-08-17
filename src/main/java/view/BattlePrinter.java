@@ -17,12 +17,9 @@ public class BattlePrinter {
      * @param phase the phase to print
      */
     public static void print(PhaseResult phase, PrintLevel level){
-        if(phase instanceof CombatPhaseResult combat){
-            print(combat, level);
-        } else if (phase instanceof ChargeResult charge) {
-            print(charge, level);
-        }
+        phase.print(level);
     }
+
     public static void print(BattleResult battle, PrintLevel level){
         System.out.println("+++++++++++++++++++++++++++++++");
         System.out.println(battle.getAttacker().getName()
@@ -33,29 +30,9 @@ public class BattlePrinter {
             print(phase, level);
         }
     }
-    public static void print(CombatPhaseResult shooting, PrintLevel level){
-        System.out.println(shooting.getPhaseName() + " Phase:");
-        System.out.println("Attacker: " + shooting.getAttacker().getName());
-        System.out.println("Defender: " + shooting.getDefender().getName());
-        if(level == PrintLevel.DETAILED){
-            for(AttackResult attack : shooting.getAttacks()){
-                print(attack);
-            }
-        }else if (level == PrintLevel.SUMMARY){
-            System.out.println("-------------------------------");
-            System.out.println("Total Attacks: " + shooting.getTotalAttacks());
-            System.out.println("Total Hits: " + shooting.getTotalHits());
-            System.out.println("Total Wounds: " + shooting.getTotalWounds());
-            System.out.println("Total unsaved Wounds: " + shooting.getTotalUnsavedWounds());
-            System.out.println("Total Damage: " + shooting.getTotalDamage());
-            System.out.println("Destroyed Models: " + shooting.getDestroyedModels());
-            System.out.println("-------------------------------" + "\n");
-        } else if (level == PrintLevel.WEAPON_SUMMARY) {
-            printWeaponSummary(shooting);
-        }
 
-    }
-    private static void printWeaponSummary(CombatPhaseResult shooting){
+
+    public static void printWeaponSummary(CombatPhaseResult shooting){
 
         Map<String, List<AttackResult>> attacksByWeapon = new LinkedHashMap<>();
 
@@ -92,20 +69,6 @@ public class BattlePrinter {
             result.add(attack);
         }
         return result;
-    }
-
-
-    public static void print(ChargeResult charge, PrintLevel level){
-        System.out.println("Charge Phase:");
-        System.out.println(charge.getAttacker().getName() + " attempts to charge at a distance of " + charge.getDistance() + "!");
-        System.out.println("The Charge Roll is a " + charge.getChargeRoll() + "!");
-        String outcome = "";
-        if (charge.isSuccessful()){
-            outcome = "successful";
-        }else{
-            outcome = "not successful";
-        }
-        System.out.println("The Charge Roll was " + outcome + "!" + "\n");
     }
 
 
