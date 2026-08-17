@@ -38,7 +38,56 @@ public class SimulationStatistics {
         totalDefenderDamage += defenderStatistics.getDamage();
         totalAttackerDestroyedModels += attackerStatistics.getDestroyedModels();
         totalDefenderDestroyedModels += defenderStatistics.getDestroyedModels();
+        //TODO Successfulcharges are the same for both attacker and defender. needs fix
         totalAttackerSuccessfulCharges += battleResult.getSuccessfulCharges(battleResult.getAttacker());
         totalDefenderSuccessfulCharges += battleResult.getSuccessfulCharges(battleResult.getDefender());
+    }
+
+    public int getSimulations() {
+        return simulations;
+    }
+    public int getAverageAttackerAttacks(){
+        return totalAttackerAttacks / simulations;
+    }
+    public int getAverageDefenderAttacks(){
+        return totalDefenderAttacks / simulations;
+    }
+    public int getAverageAttackerHits(){
+        return totalAttackerHits / simulations;
+    }
+    public int getAverageDefenderHits(){
+        return totalDefenderHits / simulations;
+    }
+    public int getAverageAttackerWounds(){
+        return totalAttackerWounds / simulations;
+    }
+    public int getAverageDefenderWounds(){
+        return totalDefenderWounds / simulations;
+    }
+    public int getAverageAttackerUnsavedWounds(){
+        return totalAttackerUnsavedWounds / simulations;
+    }
+    public int getAverageDefenderUnsavedWounds(){
+        return totalDefenderUnsavedWounds / simulations;
+    }
+    public int getAverageAttackerDamage(){
+        return totalAttackerDamage / simulations;
+    }
+    public int getAverageDefenderDamage(){
+        return totalDefenderDamage / simulations;
+    }
+    public int getAverageAttackerDestroyedModels(){
+        return totalAttackerDestroyedModels / simulations;
+    }
+    public int getAverageDefenderDestroyedModels(){
+        return totalDefenderDestroyedModels / simulations;
+    }
+
+    public int getTotalAttackerSuccessfulCharges() {
+        return totalAttackerSuccessfulCharges;
+    }
+
+    public int getTotalDefenderSuccessfulCharges() {
+        return totalDefenderSuccessfulCharges;
     }
 }

@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 /**
  * A model.Unit of one or more Models.
@@ -27,6 +28,14 @@ public class Unit {
     }
     public boolean isDestroyed() {
         return models.isEmpty();
+    }
+
+    public Unit(Unit other){
+        this.name = other.name;
+        this.models = new ArrayList<>();
+        for(Model model : other.getModels()){
+            this.models.add(new Model(model));
+        }
     }
 }
 

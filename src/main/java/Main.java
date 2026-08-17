@@ -2,6 +2,7 @@ import combat.*;
 import model.*;
 import repository.UnitRepository;
 import result.*;
+import statistics.SimulationStatistics;
 import view.*;
 
 import java.sql.*;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        CombatOptions options = new CombatOptions(AllocationStrategy.WORST_SAVE_FIRST, AllocationStrategy.WORST_SAVE_FIRST, 10, false, true);
+        CombatOptions options = new CombatOptions(AllocationStrategy.WORST_SAVE_FIRST, AllocationStrategy.WORST_SAVE_FIRST, 14, false, true);
         CombatSimulator combatSimulator = new CombatSimulator();
         Unit attacker = null;
         try {
@@ -24,7 +25,13 @@ public class Main {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        BattleResult battle = combatSimulator.simulateBattle(attacker,defender, options);
-        BattlePrinter.print(battle, PrintLevel.WEAPON_SUMMARY);
+
+        //BattleResult battle = combatSimulator.simulateBattle(attacker,defender, options);
+        //BattlePrinter.print(battle, PrintLevel.WEAPON_SUMMARY);
+        SimulationRunner simulationRunner = new SimulationRunner(combatSimulator);
+        SimulationStatistics statistics = simulationRunner.runSimulations(attacker, defender, options, 100);
+        SimulationPrinter.print(statistics, attacker, defender);
+
+
     }
 }
