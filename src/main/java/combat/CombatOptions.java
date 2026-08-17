@@ -17,6 +17,14 @@ public class CombatOptions {
         this.defenderWantsToCharge = defenderWantsToCharge;
     }
 
+    public CombatOptions(CombatOptions other) {
+        this.attackerAllocationStrategy = other.attackerAllocationStrategy;
+        this.defenderAllocationStrategy = other.defenderAllocationStrategy;
+        this.distance = other.distance;
+        this.attackerWantsToCharge = other.attackerWantsToCharge;
+        this.defenderWantsToCharge = other.defenderWantsToCharge;
+    }
+
     public AllocationStrategy getAttackerAllocationStrategy() {
         return attackerAllocationStrategy;
     }
