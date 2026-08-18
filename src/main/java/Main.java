@@ -12,7 +12,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         int startingDistance = 16;
-        int simulationRuns = 1000;
+        int simulationRuns = 10;
         int ATTACKER_ID = 3;
         int DEFENDER_ID = 2;
         CombatOptions options = new CombatOptions(AllocationStrategy.WORST_SAVE_FIRST, AllocationStrategy.WORST_SAVE_FIRST, startingDistance, false, true);

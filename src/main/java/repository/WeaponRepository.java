@@ -12,10 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WeaponRepository {
-    public static List<Weapon> getWeaponByID(int id) throws SQLException {
+    public static List<Weapon> getWeaponByID(int id, Connection connection) throws SQLException {
         List<Weapon> weaponList = new ArrayList<>();
         String sql = "SELECT w.*, mw.quantity FROM weapons w JOIN model_weapons mw ON w.id = mw.weapon_id WHERE mw.model_id = ?";
-        try (Connection connection = DatabaseConnection.getConnection();PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {

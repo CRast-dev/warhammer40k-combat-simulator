@@ -32,7 +32,7 @@ public class UnitRepository {
                         while(modelResult.next()){
                             int modelID = modelResult.getInt("model_id");
                             int modelCount = modelResult.getInt("model_count");
-                            Model model = ModelRepository.getModelByID(modelID);
+                            Model model = ModelRepository.getModelByID(modelID,connection);
                             for(int i = 0; i < modelCount; i++){
                                 models.add(new Model(model));
                             }
