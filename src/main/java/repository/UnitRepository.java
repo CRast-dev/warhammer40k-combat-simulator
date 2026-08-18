@@ -3,6 +3,7 @@ package repository;
 import database.DatabaseConnection;
 import model.Model;
 import model.Unit;
+import model.UnitSummary;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -42,5 +43,23 @@ public class UnitRepository {
             return new Unit(unitName, models);
         }
     }
+
+    public static List<UnitSummary> findAll() throws SQLException{
+        List<UnitSummary> units = new ArrayList<>();
+
+        String sql = "SELECT id, name FROM units";
+        try(Connection connection = DatabaseConnection.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery()){
+            while(resultSet.next()){
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                units.add(new UnitSummary(id,name));
+            }
+        }
+        return units;
+    }
+
+
 
 }

@@ -30,6 +30,18 @@ public class Main {
             throw new RuntimeException(e);
         }
 
+        // Outputting all available Units
+        try {
+            List<UnitSummary> unitSummaries = UnitRepository.findAll();
+            System.out.println("Supported units: ");
+            for (UnitSummary unit : unitSummaries) {
+                System.out.println(unit.getId() + " - " + unit.getName());
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
         //BattleResult battle = combatSimulator.simulateBattle(attacker,defender, options);
         //BattlePrinter.print(battle, PrintLevel.SUMMARY);
         SimulationRunner simulationRunner = new SimulationRunner(combatSimulator);
