@@ -37,5 +37,8 @@ public class Unit {
             this.models.add(new Model(model));
         }
     }
+    public boolean isAlive(){
+        return !(this.getModels().isEmpty());
+    }
 }
 

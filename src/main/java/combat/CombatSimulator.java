@@ -21,17 +21,25 @@ public class CombatSimulator {
             ChargeResult chargeResultAttacker = charge(attacker, defender, options.getDistance());
             result.addPhase(chargeResultAttacker);
             if (chargeResultAttacker.isSuccessful()) {
-                result.addPhase(melee(attacker, defender, options.getDefenderAllocationStrategy()));
-                result.addPhase(melee(defender, attacker, options.getAttackerAllocationStrategy()));
+                if(attacker.isAlive() && defender.isAlive()){
+                    result.addPhase(melee(attacker, defender, options.getDefenderAllocationStrategy()));
+                }
+                if(attacker.isAlive() && defender.isAlive()){
+                    result.addPhase(melee(defender, attacker, options.getAttackerAllocationStrategy()));
+                }
                 return result;
             }
         }
-        result.addPhase(shooting(defender, attacker, options.getAttackerAllocationStrategy()));
-        movementDefender(defender, options);
+        if(attacker.isAlive() && defender.isAlive()) {
+            result.addPhase(shooting(defender, attacker, options.getAttackerAllocationStrategy()));
+        }
+        if(attacker.isAlive() && defender.isAlive()) {
+            movementDefender(defender, options);
+        }
         if (options.defenderWantsToCharge()) {
             ChargeResult chargeResultDefender = charge(defender, attacker, options.getDistance());
             result.addPhase(chargeResultDefender);
-            if (chargeResultDefender.isSuccessful()) {
+            if (chargeResultDefender.isSuccessful() && attacker.isAlive() && defender.isAlive()) {
                 result.addPhase(melee(defender, attacker, options.getDefenderAllocationStrategy()));
                 result.addPhase(melee(attacker, defender, options.getAttackerAllocationStrategy()));
             }
@@ -74,8 +82,10 @@ public class CombatSimulator {
         List<AttackResult> atkList = new ArrayList<>();
         for(Model model : attacker.getModels()){
             for(Weapon weapon : model.getMeleeWeapons()){
-                AttackResult currentAttack = resolveWeaponAttack(weapon, defender, strategy);
-                atkList.add(currentAttack);
+                if(!(defender.getModels().isEmpty())){
+                    AttackResult currentAttack = resolveWeaponAttack(weapon, defender, strategy);
+                    atkList.add(currentAttack);
+                }
             }
         }
         return new CombatPhaseResult(PhaseType.MELEE, atkList,attacker,defender);
