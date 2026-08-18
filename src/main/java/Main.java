@@ -11,17 +11,21 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        CombatOptions options = new CombatOptions(AllocationStrategy.WORST_SAVE_FIRST, AllocationStrategy.WORST_SAVE_FIRST, 16, false, true);
+        int startingDistance = 16;
+        int simulationRuns = 1000;
+        int ATTACKER_ID = 2;
+        int DEFENDER_ID = 1;
+        CombatOptions options = new CombatOptions(AllocationStrategy.WORST_SAVE_FIRST, AllocationStrategy.WORST_SAVE_FIRST, startingDistance, false, true);
         CombatSimulator combatSimulator = new CombatSimulator();
         Unit attacker = null;
         try {
-            attacker = UnitRepository.getUnitByID(2);
+            attacker = UnitRepository.getUnitByID(DEFENDER_ID);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         Unit defender = null;
         try {
-            defender = UnitRepository.getUnitByID(1);
+            defender = UnitRepository.getUnitByID(ATTACKER_ID);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -29,7 +33,7 @@ public class Main {
         //BattleResult battle = combatSimulator.simulateBattle(attacker,defender, options);
         //BattlePrinter.print(battle, PrintLevel.SUMMARY);
         SimulationRunner simulationRunner = new SimulationRunner(combatSimulator);
-        SimulationStatistics statistics = simulationRunner.runSimulations(attacker, defender, options, 10000);
+        SimulationStatistics statistics = simulationRunner.runSimulations(attacker, defender, options, simulationRuns);
         SimulationPrinter.print(statistics, attacker, defender);
 
 

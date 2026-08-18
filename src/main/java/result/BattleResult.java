@@ -37,7 +37,7 @@ public class BattleResult{
     public CombatStatistics getStatistic(Unit unit){
         CombatStatistics statistics = new CombatStatistics();
         for(PhaseResult phase : phases){
-            phase.addStatisticFor(unit, statistics);
+            statistics.recordPhase(phase, unit);
         }
         return statistics;
     }

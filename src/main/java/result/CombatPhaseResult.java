@@ -101,7 +101,7 @@ public class CombatPhaseResult extends PhaseResult{
     @Override
     public void addStatisticFor(Unit unit, CombatStatistics statistics) {
         if(attacker == unit){
-            statistics.add(this);
+            statistics.addCombatPhase(this);
         }
     }
 }

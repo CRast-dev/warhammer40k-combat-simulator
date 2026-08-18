@@ -1,5 +1,6 @@
 package statistics;
-
+import result.*;
+import model.*;
 import result.ChargeResult;
 import result.CombatPhaseResult;
 
@@ -13,7 +14,10 @@ public class CombatStatistics {
     private int successfulCharges;
 
 
-    public void add(CombatPhaseResult phase) {
+    public void recordPhase(PhaseResult phase, Unit unit) {
+        phase.addStatisticFor(unit, this);
+    }
+    public void addCombatPhase(CombatPhaseResult phase) {
         attacks += phase.getTotalAttacks();
         hits += phase.getTotalHits();
         wounds += phase.getTotalWounds();
@@ -21,11 +25,13 @@ public class CombatStatistics {
         damage += phase.getTotalDamage();
         destroyedModels += phase.getDestroyedModels();
     }
-    public void add(ChargeResult charge){
-        if(charge.isSuccessful()){
+
+    public void addCharge(ChargeResult charge) {
+        if (charge.isSuccessful()) {
             successfulCharges++;
         }
     }
+
 
 
     public int getHits() {

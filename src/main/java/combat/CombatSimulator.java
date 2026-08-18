@@ -38,6 +38,8 @@ public class CombatSimulator {
         }
         return result;
     }
+
+
     public void movementAttacker(Unit unit, CombatOptions options){
         if(options.attackerWantsToCharge()){
             options.setDistance(options.getDistance() - unit.getModels().get(0).getMovement());
