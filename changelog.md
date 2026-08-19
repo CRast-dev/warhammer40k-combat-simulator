@@ -1,3 +1,8 @@
+Version 1.0
++ Database connectivity
++ Simulation Statistics
++ AAA Junit Testdesign
+
 Version 0.8
 + Melee Combat and Charge phase implemented
 + new class for all the starting options
