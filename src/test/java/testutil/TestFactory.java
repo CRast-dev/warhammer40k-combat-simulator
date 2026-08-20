@@ -1,5 +1,8 @@
 package testutil;
-import model.*;
+import com.warhammer.model.Damage;
+import com.warhammer.model.Model;
+import com.warhammer.model.Unit;
+import com.warhammer.model.Weapon;
 
 import java.util.ArrayList;
 import java.util.List;

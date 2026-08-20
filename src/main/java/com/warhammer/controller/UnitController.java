@@ -1,9 +1,10 @@
 package com.warhammer.controller;
 
-import model.UnitSummary;
+import com.warhammer.model.UnitSummary;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import repository.UnitRepository;
+import com.warhammer.repository.UnitRepository;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -14,6 +15,12 @@ public class UnitController {
     public List<UnitSummary> getUnits() throws SQLException {
         return UnitRepository.findAll();
     }
+
+    @GetMapping("/units/{id}")
+    public UnitSummary getUnit(@PathVariable int id) throws SQLException {
+        return new UnitSummary(UnitRepository.getUnitByID(id));
+    }
+
 }
 
 
