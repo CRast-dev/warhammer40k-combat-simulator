@@ -2,8 +2,10 @@ package combat;
 
 import java.util.ArrayList;
 import java.util.List;
-import combat.*;
-import model.*;
+
+import com.warhammer.combat.AllocationGroup;
+import com.warhammer.model.Model;
+import com.warhammer.model.Unit;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

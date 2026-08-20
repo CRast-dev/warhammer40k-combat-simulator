@@ -1,9 +1,12 @@
 package combat;
 
-import model.*;
+import com.warhammer.combat.AllocationStrategy;
+import com.warhammer.combat.CombatSimulator;
+import com.warhammer.model.Unit;
+import com.warhammer.model.Weapon;
+import com.warhammer.result.CombatPhaseResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import result.*;
 import testutil.TestFactory;
 
 import java.util.ArrayList;
