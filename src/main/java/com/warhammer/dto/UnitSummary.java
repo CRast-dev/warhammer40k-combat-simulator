@@ -1,4 +1,6 @@
-package com.warhammer.model;
+package com.warhammer.dto;
+
+import com.warhammer.model.Unit;
 
 public class UnitSummary {
 

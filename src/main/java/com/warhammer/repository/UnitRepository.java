@@ -3,7 +3,7 @@ package com.warhammer.repository;
 import com.warhammer.database.DatabaseConnection;
 import com.warhammer.model.Model;
 import com.warhammer.model.Unit;
-import com.warhammer.model.UnitSummary;
+import com.warhammer.dto.UnitSummary;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

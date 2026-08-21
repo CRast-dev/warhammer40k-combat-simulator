@@ -5,7 +5,7 @@ import com.warhammer.combat.CombatOptions;
 import com.warhammer.combat.CombatSimulator;
 import com.warhammer.combat.SimulationRunner;
 import com.warhammer.model.Unit;
-import com.warhammer.model.UnitSummary;
+import com.warhammer.dto.UnitSummary;
 import com.warhammer.view.SimulationPrinter;
 import com.warhammer.repository.UnitRepository;
 import com.warhammer.statistics.SimulationStatistics;
