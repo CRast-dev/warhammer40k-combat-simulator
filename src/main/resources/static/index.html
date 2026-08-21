@@ -3,46 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <title>Warhammer Combat Simulator</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <h1>Warhammer Combat Simulator</h1>
 
-<h2>Battle Setup</h2>
+<div class="simulation-form">
 
-<label for="attacker">Attacker:</label>
-<select id="attacker"></select>
+    <label for="attacker">Attacker:</label>
+    <select id="attacker"></select>
 
-<br><br>
+    <label for="defender">Defender:</label>
+    <select id="defender"></select>
 
-<label for="defender">Defender:</label>
-<select id="defender"></select>
+    <label for="runs">Simulations:</label>
+    <input type="number" id="runs" value="100" min="1">
+    <label for="distance">Starting Distance:</label>
+    <input id="distance" type="number" value="14">
 
-<br><br>
+    <label for="attackerCharge">Attacker wants to charge:</label>
+    <input id="attackerCharge" type="checkbox">
 
-<label for="runs">Simulations:</label>
-<input id="runs" type="number" value="1000">
+    <label for="defenderCharge">Defender wants to charge:</label>
+    <input id="defenderCharge" type="checkbox">
 
-<br><br>
+    <button id="simulateButton">Run Simulation</button>
 
-<label for="distance">Starting Distance:</label>
-<input id="distance" type="number" value="14">
+</div>
 
-<br><br>
 
-<label for="attackerCharge">Attacker wants to charge:</label>
-<input id="attackerCharge" type="checkbox">
+<div id="results" class="results-panel">
+    <h2>Results</h2>
 
-<br><br>
+    <div class="result-columns">
 
-<label for="defenderCharge">Defender wants to charge:</label>
-<input id="defenderCharge" type="checkbox">
+        <div>
+            <h3>Attacker</h3>
 
-<br><br>
+            <p>Average Attacks:
+                <span id="attackerAttacks">-</span>
+            </p>
 
-<button>Simulate</button>
+            <p>Average Hits:
+                <span id="attackerHits">-</span>
+            </p>
+
+            <p>Average Wounds:
+                <span id="attackerWounds">-</span>
+            </p>
+
+            <p>Average Unsaved Wounds:
+                <span id="attackerUnsavedWounds">-</span>
+            </p>
+
+            <p>Average Damage:
+                <span id="attackerDamage">-</span>
+            </p>
+
+            <p>Average Destroyed Models:
+                <span id="attackerDestroyedModels">-</span>
+            </p>
+        </div>
+
+
+        <div>
+            <h3>Defender</h3>
+
+            <p>Average Attacks:
+                <span id="defenderAttacks">-</span>
+            </p>
+
+            <p>Average Hits:
+                <span id="defenderHits">-</span>
+            </p>
+
+            <p>Average Wounds:
+                <span id="defenderWounds">-</span>
+            </p>
+
+            <p>Average Unsaved Wounds:
+                <span id="defenderUnsavedWounds">-</span>
+            </p>
+
+            <p>Average Damage:
+                <span id="defenderDamage">-</span>
+            </p>
+
+            <p>Average Destroyed Models:
+                <span id="defenderDestroyedModels">-</span>
+            </p>
+        </div>
+
+    </div>
+
+    <p>Successful Attacker Charges:
+        <span id="attackerCharges">-</span>
+    </p>
+
+    <p>Successful Defender Charges:
+        <span id="defenderCharges">-</span>
+    </p>
+
+</div>
+
+<script src="app.js"></script>
 
 </body>
 </html>
-<script src="app.js"></script>

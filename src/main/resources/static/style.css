@@ -1,0 +1,64 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #202020;
+    color: #eeeeee;
+}
+
+h1 {
+    text-align: center;
+}
+
+.simulation-form {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    margin-bottom: 30px;
+    background-color: #303030;
+    border-radius: 8px;
+}
+
+select,
+input,
+button {
+    padding: 8px;
+    font-size: 14px;
+}
+
+button {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.results-panel {
+    padding: 25px;
+    background-color: #303030;
+    border-radius: 8px;
+}
+
+.result-columns {
+    display: flex;
+    gap: 50px;
+}
+
+.result-columns > div {
+    flex: 1;
+}
+
+.result-columns h3 {
+    border-bottom: 1px solid #777777;
+    padding-bottom: 8px;
+}
+
+.results-panel p {
+    display: flex;
+    justify-content: space-between;
+}
+
+.results-panel span {
+    font-weight: bold;
+}
