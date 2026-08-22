@@ -13,13 +13,15 @@ import java.sql.SQLException;
 @Service
 public class SimulationService {
     private final SimulationRunner simulationRunner;
+    private final UnitRepository unitRepository;
 
-    public SimulationService(SimulationRunner simulationRunner) {
+    public SimulationService(SimulationRunner simulationRunner, UnitRepository unitRepository) {
         this.simulationRunner = simulationRunner;
+        this.unitRepository = unitRepository;
     }
     public SimulationStatistics runSimulation(SimulationRequestDTO request) throws SQLException{
-        Unit attacker = UnitRepository.getUnitByID(request.attackerID());
-        Unit defender = UnitRepository.getUnitByID(request.defenderID());
+        Unit attacker = unitRepository.getUnitByID(request.attackerID());
+        Unit defender = unitRepository.getUnitByID(request.defenderID());
         CombatOptions options = new CombatOptions(request.attackerStrategy(), request.defenderStrategy(), request.distance(),
                                                     request.attackerCharge(), request.defenderCharge());
         return simulationRunner.runSimulations(attacker, defender, options, request.runs());

@@ -1,3 +1,5 @@
+/* OLD MAIN FOR CONSOLE OUTPUT ++++++ RETIRED ++++++
+
 package com.warhammer;
 
 import com.warhammer.combat.AllocationStrategy;
@@ -55,3 +57,5 @@ public class Main {
 
     }
 }
+
+*/

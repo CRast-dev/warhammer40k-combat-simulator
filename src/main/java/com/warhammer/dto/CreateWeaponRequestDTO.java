@@ -28,5 +28,7 @@ public record CreateWeaponRequestDTO(
         @Min(0)
         int range,
         @NotNull
-        Weapon.WeaponType weaponType
+        Weapon.WeaponType weaponType,
+        @Min(1)
+        int quantity
 ) {}

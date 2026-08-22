@@ -11,6 +11,11 @@ import java.util.List;
 @RestController
 public class UnitController {
 
+    private final UnitRepository unitRepository;
+
+    public UnitController(UnitRepository unitRepository) {
+        this.unitRepository = unitRepository;
+    }
 
     @PostMapping("/units/test")
     public String testCreateUnit(
@@ -21,12 +26,12 @@ public class UnitController {
 
     @GetMapping("/units")
     public List<UnitSummary> getUnits() throws SQLException {
-        return UnitRepository.findAll();
+        return unitRepository.findAll();
     }
 
     @GetMapping("/units/{id}")
     public UnitSummary getUnit(@PathVariable int id) throws SQLException {
-        return new UnitSummary(UnitRepository.getUnitByID(id));
+        return new UnitSummary(unitRepository.getUnitByID(id));
     }
 
 }
