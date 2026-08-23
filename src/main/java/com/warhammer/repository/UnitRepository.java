@@ -2,6 +2,7 @@ package com.warhammer.repository;
 
 import com.warhammer.database.DatabaseConnection;
 import com.warhammer.dto.CreateModelRequestDTO;
+import com.warhammer.dto.CreateWeaponRequestDTO;
 import com.warhammer.model.Model;
 import com.warhammer.model.Unit;
 import com.warhammer.dto.UnitSummary;
@@ -36,31 +37,18 @@ public class UnitRepository {
     }
 
 
-    public int createModel(CreateModelRequestDTO model) throws SQLException {
+    public void addModel(int unitId, int modelId, int quantity) throws SQLException {
         String sql = """
-            INSERT INTO models (name, max_wounds, toughness, save, invuln_save, is_character, movement)
-            VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING id
-            """;
+                INSERT INTO unit_models (unit_id, model_id, quantity) VALUES (?, ?, ?)
+                """;
         try(PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setString(1, model.name());
-            statement.setInt(2, model.maxWounds());
-            statement.setDouble(3, model.toughness());
-            statement.setInt(4, model.save());
-            statement.setInt(5, model.invulnSave());
-            statement.setBoolean(6, model.isCharacter());
-            statement.setInt(7, model.movement());
-            try(ResultSet resultSet = statement.executeQuery()){
-                if(resultSet.next()){
-                    return resultSet.getInt("id");
-                }
-            }
-            throw new SQLException("FAILED createModel METHOD IN UNITREPOSITORY");
+            statement.setInt(1, unitId);
+            statement.setInt(2, modelId);
+            statement.setInt(3, quantity);
+            statement.executeUpdate();
         }
+
     }
-
-
-
-
 
     public Unit getUnitByID(int id) throws SQLException {
         String unitName = "";

@@ -2,6 +2,7 @@ package com.warhammer.controller;
 
 import com.warhammer.dto.CreateUnitRequestDTO;
 import com.warhammer.dto.UnitSummary;
+import com.warhammer.service.UnitService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import com.warhammer.repository.UnitRepository;
@@ -12,15 +13,24 @@ import java.util.List;
 public class UnitController {
 
     private final UnitRepository unitRepository;
+    private final UnitService unitService;
 
-    public UnitController(UnitRepository unitRepository) {
+    public UnitController(UnitRepository unitRepository, UnitService unitService) {
         this.unitRepository = unitRepository;
+        this.unitService = unitService;
     }
 
     @PostMapping("/units/test")
     public String testCreateUnit(
             @Valid @RequestBody CreateUnitRequestDTO request) {
         return "Unit received: " + request.name();
+    }
+    @PostMapping("/units")
+    public void createUnit(
+            @Valid @RequestBody CreateUnitRequestDTO request)
+            throws SQLException {
+
+        unitService.createUnit(request);
     }
 
 

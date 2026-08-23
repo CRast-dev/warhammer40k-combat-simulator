@@ -7,6 +7,9 @@ import com.warhammer.dto.CreateWeaponRequestDTO;
 import com.warhammer.repository.ModelRepository;
 import com.warhammer.repository.UnitRepository;
 import com.warhammer.repository.WeaponRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.sql.SQLException;
 
 @Service
@@ -21,8 +24,7 @@ public class UnitService {
         this.weaponRepository = weaponRepository;
     }
     @Transactional
-    public void createUnit(CreateUnitRequestDTO request) {
-        //TODO
+    public void createUnit(CreateUnitRequestDTO request) throws  SQLException {
         int unitId = unitRepository.createUnit(request.name());
         for (CreateModelRequestDTO modelRequest : request.models()) {
             int modelId = modelRepository.createModel(modelRequest);
