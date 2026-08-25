@@ -8,15 +8,16 @@ import com.warhammer.model.Model;
 import com.warhammer.model.Weapon;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 @Repository
 public class ModelRepository {
-    private final Connection connection;
+    private final DataSource dataSource;
 
-    public ModelRepository(Connection connection) {
-        this.connection = connection;
+    public ModelRepository(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     public static Model getModelByID(int id, Connection connection) throws SQLException {
@@ -46,7 +47,7 @@ public class ModelRepository {
             INSERT INTO models (name, max_wounds, toughness, save, invuln_save, is_character, movement)
             VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING id
             """;
-        try(PreparedStatement statement = connection.prepareStatement(sql)){
+        try(Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setString(1, model.name());
             statement.setInt(2, model.maxWounds());
             statement.setDouble(3, model.toughness());
@@ -68,7 +69,7 @@ public class ModelRepository {
         String sql = """
                 INSERT INTO model_weapons (model_id, weapon_id, quantity) VALUES (?, ?, ?)
                 """;
-        try(PreparedStatement statement = connection.prepareStatement(sql)){
+        try(Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setInt(1, modelId);
             statement.setInt(2,weaponId);
             statement.setInt(3, quantity);

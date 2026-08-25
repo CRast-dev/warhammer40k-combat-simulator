@@ -5,6 +5,7 @@ import com.warhammer.model.Damage;
 import com.warhammer.model.Weapon;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,10 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 @Repository
 public class WeaponRepository {
-    private final Connection connection;
+    private final DataSource dataSource;
 
-    public WeaponRepository(Connection connection) {
-        this.connection = connection;
+    public WeaponRepository(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     public static List<Weapon> getWeaponByID(int id, Connection connection) throws SQLException {
@@ -56,10 +57,10 @@ public class WeaponRepository {
     public int createWeapon(CreateWeaponRequestDTO weapon) throws SQLException {
         String sql = """
                 INSERT INTO weapons (name, flat_attacks, skill, strength, ap, flat_damage, damage_dice_side, damage_dice_count,
-                range, weapon_type, atttack_dice_side, attack_dice_count) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                range, weapon_type, attack_dice_side, attack_dice_count) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 RETURNING id
                 """;
-        try(PreparedStatement statement = connection.prepareStatement(sql)){
+        try(Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setString(1, weapon.name());
             statement.setInt(2, weapon.flatAttacks());
             statement.setInt(3,weapon.skill());

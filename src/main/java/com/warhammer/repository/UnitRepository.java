@@ -8,6 +8,7 @@ import com.warhammer.model.Unit;
 import com.warhammer.dto.UnitSummary;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,15 +18,75 @@ import java.util.List;
 
 @Repository
 public class UnitRepository {
-    private final Connection connection;
+    private final DataSource dataSource;
 
-    public UnitRepository(Connection connection) {
-        this.connection = connection;
+    public UnitRepository(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
+
+    public List<Integer> getModelIdsForUnit(int unitId) throws SQLException {
+        List<Integer> modelIds = new ArrayList<>();
+        String sql = """
+                SELECT model_id FROM unit_models WHERE unit_id = ?""";
+        try(PreparedStatement statement = dataSource.getConnection().prepareStatement(sql)){
+            statement.setInt(1, unitId);
+            try (ResultSet resultSet = statement.executeQuery()){
+                while (resultSet.next()) {
+                    modelIds.add(resultSet.getInt("model_id"));
+                }
+            }
+        }
+        return modelIds;
+    }
+    public boolean isModelUsedByAnotherUnit(int modelId, int unitId) throws SQLException {
+        String sql = """
+                SELECT COUNT(*) FROM unit_models WHERE model_id = ? AND unit_id = <> ?""";
+        try(PreparedStatement statement = dataSource.getConnection().prepareStatement(sql)){
+            statement.setInt(1, modelId);
+            statement.setInt(2, unitId);
+            try (ResultSet resultSet = statement.executeQuery()){
+                resultSet.next();
+                return resultSet.getInt(1) > 0;
+            }
+        }
+    }
+
+    public List<Integer> getWeaponIdsForModel(int modelId) throws SQLException {
+        List<Integer> weaponIds = new ArrayList<>();
+        String sql = """
+                SELECT weapon_id FROM model_weapons WHERE model_id = ?""";
+        try(PreparedStatement statement = dataSource.getConnection().prepareStatement(sql)){
+            statement.setInt(1, modelId);
+            try (ResultSet resultSet = statement.executeQuery()){
+                while (resultSet.next()) {
+                    weaponIds.add(resultSet.getInt("model_id"));
+                }
+            }
+        }
+        return weaponIds;
+    }
+
+
+    public boolean isWeaponUsedByAnotherModel(int weaponId, int modelId) throws SQLException {
+        String sql = """
+                SELECT COUNT(*) FROM model_weapons WHERE weapon_id = ? AND model_id = <> ?""";
+        try(PreparedStatement statement = dataSource.getConnection().prepareStatement(sql)){
+            statement.setInt(1, weaponId);
+            statement.setInt(2, modelId);
+            try (ResultSet resultSet = statement.executeQuery()){
+                resultSet.next();
+                return resultSet.getInt(1) > 0;
+            }
+        }
+    }
+
+
+
+
 
     public int createUnit(String name) throws SQLException {
         String sql = "INSERT INTO units (name) VALUES (?) RETURNING id";
-        try(PreparedStatement statement = connection.prepareStatement(sql)){
+        try(Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setString(1,name);
             try(ResultSet resultSet = statement.executeQuery()){
                 if(resultSet.next()){
@@ -37,14 +98,14 @@ public class UnitRepository {
     }
 
 
-    public void addModel(int unitId, int modelId, int quantity) throws SQLException {
+    public void addModel(int unitId, int modelId, int model_count) throws SQLException {
         String sql = """
-                INSERT INTO unit_models (unit_id, model_id, quantity) VALUES (?, ?, ?)
+                INSERT INTO unit_models (unit_id, model_id, model_count) VALUES (?, ?, ?)
                 """;
-        try(PreparedStatement statement = connection.prepareStatement(sql)){
+        try(Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setInt(1, unitId);
             statement.setInt(2, modelId);
-            statement.setInt(3, quantity);
+            statement.setInt(3, model_count);
             statement.executeUpdate();
         }
 
@@ -84,7 +145,6 @@ public class UnitRepository {
 
     public List<UnitSummary> findAll() throws SQLException{
         List<UnitSummary> units = new ArrayList<>();
-
         String sql = "SELECT id, name FROM units";
         try(Connection connection = DatabaseConnection.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql);
