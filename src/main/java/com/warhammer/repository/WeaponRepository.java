@@ -20,6 +20,16 @@ public class WeaponRepository {
         this.dataSource = dataSource;
     }
 
+    public void deleteWeapon(int weaponId) throws SQLException {
+        String sql = "DELETE FROM weapons WHERE id = ?";
+        try (PreparedStatement statement = dataSource.getConnection().prepareStatement(sql)) {
+            statement.setInt(1, weaponId);
+            statement.executeUpdate();
+        }
+    }
+
+
+
     public static List<Weapon> getWeaponByID(int id, Connection connection) throws SQLException {
         List<Weapon> weaponList = new ArrayList<>();
         String sql = "SELECT w.*, mw.quantity FROM weapons w JOIN model_weapons mw ON w.id = mw.weapon_id WHERE mw.model_id = ?";

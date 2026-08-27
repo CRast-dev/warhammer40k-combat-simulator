@@ -51,32 +51,18 @@ public class UnitRepository {
         }
     }
 
-    public List<Integer> getWeaponIdsForModel(int modelId) throws SQLException {
-        List<Integer> weaponIds = new ArrayList<>();
-        String sql = """
-                SELECT weapon_id FROM model_weapons WHERE model_id = ?""";
-        try(PreparedStatement statement = dataSource.getConnection().prepareStatement(sql)){
-            statement.setInt(1, modelId);
-            try (ResultSet resultSet = statement.executeQuery()){
-                while (resultSet.next()) {
-                    weaponIds.add(resultSet.getInt("model_id"));
-                }
-            }
+    public void deleteUnit(int unitId) throws SQLException {
+        String sql = "DELETE FROM units WHERE id = ?";
+        try (PreparedStatement statement = dataSource.getConnection().prepareStatement(sql)) {
+            statement.setInt(1, unitId);
+            statement.executeUpdate();
         }
-        return weaponIds;
     }
-
-
-    public boolean isWeaponUsedByAnotherModel(int weaponId, int modelId) throws SQLException {
-        String sql = """
-                SELECT COUNT(*) FROM model_weapons WHERE weapon_id = ? AND model_id = <> ?""";
-        try(PreparedStatement statement = dataSource.getConnection().prepareStatement(sql)){
-            statement.setInt(1, weaponId);
-            statement.setInt(2, modelId);
-            try (ResultSet resultSet = statement.executeQuery()){
-                resultSet.next();
-                return resultSet.getInt(1) > 0;
-            }
+    public void deleteUnitModelLinks(int unitId) throws SQLException {
+        String sql = "DELETE FROM unit_models WHERE unit_id = ?";
+        try (PreparedStatement statement = dataSource.getConnection().prepareStatement(sql)) {
+            statement.setInt(1, unitId);
+            statement.executeUpdate();
         }
     }
 

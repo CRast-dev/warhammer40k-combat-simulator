@@ -1,6 +1,7 @@
 package com.warhammer.repository;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.warhammer.dto.CreateModelRequestDTO;
@@ -19,6 +20,51 @@ public class ModelRepository {
     public ModelRepository(DataSource dataSource) {
         this.dataSource = dataSource;
     }
+
+    public List<Integer> getWeaponIdsForModel(int modelId) throws SQLException {
+        List<Integer> weaponIds = new ArrayList<>();
+        String sql = """
+                SELECT weapon_id FROM model_weapons WHERE model_id = ?""";
+        try(PreparedStatement statement = dataSource.getConnection().prepareStatement(sql)){
+            statement.setInt(1, modelId);
+            try (ResultSet resultSet = statement.executeQuery()){
+                while (resultSet.next()) {
+                    weaponIds.add(resultSet.getInt("model_id"));
+                }
+            }
+        }
+        return weaponIds;
+    }
+
+    public boolean isWeaponUsedByAnotherModel(int weaponId, int modelId) throws SQLException {
+        String sql = """
+                SELECT COUNT(*) FROM model_weapons WHERE weapon_id = ? AND model_id = <> ?""";
+        try(PreparedStatement statement = dataSource.getConnection().prepareStatement(sql)){
+            statement.setInt(1, weaponId);
+            statement.setInt(2, modelId);
+            try (ResultSet resultSet = statement.executeQuery()){
+                resultSet.next();
+                return resultSet.getInt(1) > 0;
+            }
+        }
+    }
+
+    public void deleteModel(int modelId) throws SQLException {
+        String sql = "DELETE FROM models WHERE id = ?";
+        try (PreparedStatement statement = dataSource.getConnection().prepareStatement(sql)) {
+            statement.setInt(1, modelId);
+            statement.executeUpdate();
+        }
+    }
+    public void deleteModelWeaponLinks(int modelId) throws SQLException {
+        String sql = "DELETE FROM model_weapons WHERE model_id = ?";
+
+        try (PreparedStatement statement = dataSource.getConnection().prepareStatement(sql)) {
+            statement.setInt(1, modelId);
+            statement.executeUpdate();
+        }
+    }
+
 
     public static Model getModelByID(int id, Connection connection) throws SQLException {
         String sql = "SELECT toughness, save, invuln_save, max_wounds, movement, is_character FROM models WHERE id = ?";
