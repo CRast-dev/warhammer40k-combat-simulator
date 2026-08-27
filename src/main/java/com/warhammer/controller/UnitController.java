@@ -4,6 +4,7 @@ import com.warhammer.dto.CreateUnitRequestDTO;
 import com.warhammer.dto.UnitSummary;
 import com.warhammer.service.UnitService;
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.warhammer.repository.UnitRepository;
 import java.sql.SQLException;
@@ -18,6 +19,12 @@ public class UnitController {
     public UnitController(UnitRepository unitRepository, UnitService unitService) {
         this.unitRepository = unitRepository;
         this.unitService = unitService;
+    }
+
+    @DeleteMapping("/units/{id}")
+    public ResponseEntity<Void> deleteUnit(@PathVariable int id) throws SQLException {
+        unitService.deleteUnit(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/units/test")

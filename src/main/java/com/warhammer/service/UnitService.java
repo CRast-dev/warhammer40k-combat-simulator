@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
+import java.util.List;
 
 @Service
 public class UnitService {
@@ -23,6 +24,31 @@ public class UnitService {
         this.modelRepository = modelRepository;
         this.weaponRepository = weaponRepository;
     }
+
+    @Transactional
+    public void deleteUnit(int unitId) throws SQLException {
+        List<Integer> modelIds = unitRepository.getModelIdsForUnit(unitId);
+        for (int modelId : modelIds) {
+            List<Integer> weaponIds = modelRepository.getWeaponIdsForModel(modelId);
+            boolean modelIsShared = unitRepository.isModelUsedByAnotherUnit(modelId, unitId);
+            if (!modelIsShared) {
+                for (int weaponId : weaponIds) {
+                    boolean weaponIsShared = modelRepository.isWeaponUsedByAnotherModel(weaponId, modelId);
+                    modelRepository.deleteModelWeaponLinks(modelId);
+                    if (!weaponIsShared) {
+                        weaponRepository.deleteWeapon(weaponId);
+                    }
+                }
+                modelRepository.deleteModel(modelId);
+            }
+        }
+        unitRepository.deleteUnitModelLinks(unitId);
+        unitRepository.deleteUnit(unitId);
+    }
+
+
+
+
     @Transactional
     public void createUnit(CreateUnitRequestDTO request) throws  SQLException {
         int unitId = unitRepository.createUnit(request.name());

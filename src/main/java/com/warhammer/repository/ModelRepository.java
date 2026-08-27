@@ -58,7 +58,6 @@ public class ModelRepository {
     }
     public void deleteModelWeaponLinks(int modelId) throws SQLException {
         String sql = "DELETE FROM model_weapons WHERE model_id = ?";
-
         try (PreparedStatement statement = dataSource.getConnection().prepareStatement(sql)) {
             statement.setInt(1, modelId);
             statement.executeUpdate();
