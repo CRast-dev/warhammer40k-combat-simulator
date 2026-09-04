@@ -2,6 +2,7 @@ package com.warhammer.controller;
 
 import com.warhammer.dto.CreateUnitRequestDTO;
 import com.warhammer.dto.UnitSummary;
+import com.warhammer.model.Unit;
 import com.warhammer.service.UnitService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -47,8 +48,12 @@ public class UnitController {
     }
 
     @GetMapping("/units/{id}")
-    public UnitSummary getUnit(@PathVariable int id) throws SQLException {
-        return new UnitSummary(unitRepository.getUnitByID(id));
+    public ResponseEntity<UnitSummary> getUnit(@PathVariable int id) throws SQLException {
+        Unit unit = unitRepository.getUnitByID(id);
+        if (unit == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(new UnitSummary(unit));
     }
 
 }

@@ -7,8 +7,10 @@ import com.warhammer.dto.CreateWeaponRequestDTO;
 import com.warhammer.repository.ModelRepository;
 import com.warhammer.repository.UnitRepository;
 import com.warhammer.repository.WeaponRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -46,7 +48,10 @@ public class UnitService {
             }
             modelRepository.deleteModel(modelId);
         }
-        unitRepository.deleteUnit(unitId);
+        boolean deleted = unitRepository.deleteUnit(unitId);
+        if (!deleted) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unit with ID " + unitId + " not found");
+        }
     }
 
     @Transactional

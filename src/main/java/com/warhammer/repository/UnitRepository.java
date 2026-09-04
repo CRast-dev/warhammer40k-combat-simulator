@@ -53,12 +53,12 @@ public class UnitRepository {
         }
     }
 
-    public void deleteUnit(int unitId) throws SQLException {
+    public boolean deleteUnit(int unitId) throws SQLException {
         String sql = "DELETE FROM units WHERE id = ?";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, unitId);
-            statement.executeUpdate();
+            return statement.executeUpdate() > 0;
         }
     }
     public void deleteUnitModelLinks(int unitId) throws SQLException {
