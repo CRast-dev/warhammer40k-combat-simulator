@@ -22,13 +22,12 @@ public class WeaponRepository {
 
     public void deleteWeapon(int weaponId) throws SQLException {
         String sql = "DELETE FROM weapons WHERE id = ?";
-        try (PreparedStatement statement = dataSource.getConnection().prepareStatement(sql)) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, weaponId);
             statement.executeUpdate();
         }
     }
-
-
 
     public static List<Weapon> getWeaponByID(int id, Connection connection) throws SQLException {
         List<Weapon> weaponList = new ArrayList<>();

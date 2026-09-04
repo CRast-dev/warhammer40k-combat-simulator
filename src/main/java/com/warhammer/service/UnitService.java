@@ -28,26 +28,26 @@ public class UnitService {
     @Transactional
     public void deleteUnit(int unitId) throws SQLException {
         List<Integer> modelIds = unitRepository.getModelIdsForUnit(unitId);
-        for (int modelId : modelIds) {
-            List<Integer> weaponIds = modelRepository.getWeaponIdsForModel(modelId);
-            boolean modelIsShared = unitRepository.isModelUsedByAnotherUnit(modelId, unitId);
-            if (!modelIsShared) {
-                for (int weaponId : weaponIds) {
-                    boolean weaponIsShared = modelRepository.isWeaponUsedByAnotherModel(weaponId, modelId);
-                    modelRepository.deleteModelWeaponLinks(modelId);
-                    if (!weaponIsShared) {
-                        weaponRepository.deleteWeapon(weaponId);
-                    }
-                }
-                modelRepository.deleteModel(modelId);
-            }
-        }
+        //Remove the unit to model relationships first
         unitRepository.deleteUnitModelLinks(unitId);
+        for (int modelId : modelIds) {
+            boolean modelIsShared = unitRepository.isModelUsedByAnotherUnit(modelId, unitId);
+            if (modelIsShared) {
+                continue;
+            }
+            List<Integer> weaponIds = modelRepository.getWeaponIdsForModel(modelId);
+            //Remove model to weapon relationship
+            modelRepository.deleteModelWeaponLinks(modelId);
+            for (int weaponId : weaponIds) {
+                boolean weaponIsShared = modelRepository.isWeaponUsedByAnotherModel(weaponId, modelId);
+                if (!weaponIsShared) {
+                    weaponRepository.deleteWeapon(weaponId);
+                }
+            }
+            modelRepository.deleteModel(modelId);
+        }
         unitRepository.deleteUnit(unitId);
     }
-
-
-
 
     @Transactional
     public void createUnit(CreateUnitRequestDTO request) throws  SQLException {

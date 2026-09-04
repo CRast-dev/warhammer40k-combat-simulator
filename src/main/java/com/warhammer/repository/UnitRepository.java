@@ -28,7 +28,8 @@ public class UnitRepository {
         List<Integer> modelIds = new ArrayList<>();
         String sql = """
                 SELECT model_id FROM unit_models WHERE unit_id = ?""";
-        try(PreparedStatement statement = dataSource.getConnection().prepareStatement(sql)){
+        try(Connection connection = dataSource.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setInt(1, unitId);
             try (ResultSet resultSet = statement.executeQuery()){
                 while (resultSet.next()) {
@@ -40,8 +41,9 @@ public class UnitRepository {
     }
     public boolean isModelUsedByAnotherUnit(int modelId, int unitId) throws SQLException {
         String sql = """
-                SELECT COUNT(*) FROM unit_models WHERE model_id = ? AND unit_id = <> ?""";
-        try(PreparedStatement statement = dataSource.getConnection().prepareStatement(sql)){
+                SELECT COUNT(*) FROM unit_models WHERE model_id = ? AND unit_id <> ?""";
+        try(Connection connection = dataSource.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setInt(1, modelId);
             statement.setInt(2, unitId);
             try (ResultSet resultSet = statement.executeQuery()){
@@ -53,22 +55,20 @@ public class UnitRepository {
 
     public void deleteUnit(int unitId) throws SQLException {
         String sql = "DELETE FROM units WHERE id = ?";
-        try (PreparedStatement statement = dataSource.getConnection().prepareStatement(sql)) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, unitId);
             statement.executeUpdate();
         }
     }
     public void deleteUnitModelLinks(int unitId) throws SQLException {
         String sql = "DELETE FROM unit_models WHERE unit_id = ?";
-        try (PreparedStatement statement = dataSource.getConnection().prepareStatement(sql)) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, unitId);
             statement.executeUpdate();
         }
     }
-
-
-
-
 
     public int createUnit(String name) throws SQLException {
         String sql = "INSERT INTO units (name) VALUES (?) RETURNING id";

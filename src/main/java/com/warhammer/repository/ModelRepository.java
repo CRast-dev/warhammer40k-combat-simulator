@@ -25,11 +25,12 @@ public class ModelRepository {
         List<Integer> weaponIds = new ArrayList<>();
         String sql = """
                 SELECT weapon_id FROM model_weapons WHERE model_id = ?""";
-        try(PreparedStatement statement = dataSource.getConnection().prepareStatement(sql)){
+        try(Connection connection = dataSource.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setInt(1, modelId);
             try (ResultSet resultSet = statement.executeQuery()){
                 while (resultSet.next()) {
-                    weaponIds.add(resultSet.getInt("model_id"));
+                    weaponIds.add(resultSet.getInt("weapon_id"));
                 }
             }
         }
@@ -39,7 +40,8 @@ public class ModelRepository {
     public boolean isWeaponUsedByAnotherModel(int weaponId, int modelId) throws SQLException {
         String sql = """
                 SELECT COUNT(*) FROM model_weapons WHERE weapon_id = ? AND model_id = <> ?""";
-        try(PreparedStatement statement = dataSource.getConnection().prepareStatement(sql)){
+        try(Connection connection = dataSource.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setInt(1, weaponId);
             statement.setInt(2, modelId);
             try (ResultSet resultSet = statement.executeQuery()){
@@ -51,19 +53,20 @@ public class ModelRepository {
 
     public void deleteModel(int modelId) throws SQLException {
         String sql = "DELETE FROM models WHERE id = ?";
-        try (PreparedStatement statement = dataSource.getConnection().prepareStatement(sql)) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, modelId);
             statement.executeUpdate();
         }
     }
     public void deleteModelWeaponLinks(int modelId) throws SQLException {
         String sql = "DELETE FROM model_weapons WHERE model_id = ?";
-        try (PreparedStatement statement = dataSource.getConnection().prepareStatement(sql)) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, modelId);
             statement.executeUpdate();
         }
     }
-
 
     public static Model getModelByID(int id, Connection connection) throws SQLException {
         String sql = "SELECT toughness, save, invuln_save, max_wounds, movement, is_character FROM models WHERE id = ?";
@@ -108,7 +111,6 @@ public class ModelRepository {
             throw new SQLException("FAILED createModel METHOD IN UNITREPOSITORY");
         }
     }
-
 
     public void addWeapon(int modelId, int weaponId, int quantity) throws SQLException {
         String sql = """
