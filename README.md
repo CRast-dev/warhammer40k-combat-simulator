@@ -176,12 +176,12 @@ rules and unit/model/weapon representation in an object oriented approach.
 
 The project later transitioned to:
 
-PostgreSQL persistence
-Spring dependency injection
-REST endpoints
-DTO-based API requests
-Transactional services
-A browser-based interface
+- PostgreSQL persistence
+- Spring dependency injection
+- REST endpoints
+- DTO-based API requests
+- Transactional services
+- A browser-based interface
 
 Version 1.0.0 marks the first official release of this web-based architecture.
 
